@@ -11,7 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "api-managers": "file:",
-    "axios": "^1.6.2"
+    "axios": "^1.6.2",
+    "bl-application": "file:../core/bl-application"
   },
   "devDependencies": {
     "typescript": "^5.3.2"
