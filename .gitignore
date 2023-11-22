@@ -1,21 +1,21 @@
 # Logs
-logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
+BLVueApplication/logs
+BLVueApplication/*.log
+BLVueApplication/npm-debug.log*
+BLVueApplication/yarn-debug.log*
+BLVueApplication/yarn-error.log*
+BLVueApplication/pnpm-debug.log*
+BLVueApplication/lerna-debug.log*
 
-node_modules
-.DS_Store
-dist
-dist-ssr
-coverage
-*.local
+BLVueApplication/node_modules
+BLVueApplication/.DS_Store
+BLVueApplication/dist
+BLVueApplication/dist-ssr
+BLVueApplication/coverage
+BLVueApplication/*.local
 
-/cypress/videos/
-/cypress/screenshots/
+BLVueApplication/cypress/videos/
+BLVueApplication/cypress/screenshots/
 
 # Editor directories and files
 .vscode/*
