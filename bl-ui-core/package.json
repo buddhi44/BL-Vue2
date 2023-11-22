@@ -1,0 +1,18 @@
+{
+  "name": "bl-ui-core",
+  "version": "1.0.0",
+  "description": "blue Lotus UI Elements",
+  "main": "lib/index.js",
+  "types": "lib",
+  "scripts": {
+    "build": "npm install && tsc -p ."
+  },
+  "author": "Gayantha Ansuhan",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^5.3.2"
+  },
+  "dependencies": {
+    "bl-ui-core": "file:"
+  }
+}

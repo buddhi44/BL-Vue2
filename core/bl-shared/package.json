@@ -1,0 +1,15 @@
+{
+  "name": "bl-shared",
+  "version": "1.0.0",
+  "description": "Shared Node App",
+  "main": "lib/index.ts",
+  "types": "lib",
+  "scripts": {
+    "build": "npm install && tsc -p ."
+  },
+  "author": "Gayantha Anushan",
+  "license": "ISC",
+  "dependencies": {
+    "bl-shared": "file:"
+  }
+}

@@ -4,6 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "vite",
+    "build-application":"npm run --prefix ../core/bl-application build",
+    "build-domain":"npm run --prefix ../core/bl-domain build",
+    "build-shared":"npm run --prefix ../core/bl-shared build",
+    "build-ui":"npm run --prefix ../bl-ui-core build",
+    "build-managers":"npm run --prefix ../api-managers build",
+    "build-custom-dependencies":"npm run build-shared && npm run build-domain && npm run build-application && npm run  build-managers && npm run build-ui",
     "build": "run-p type-check \"build-only {@}\" --",
     "preview": "vite preview",
     "test:unit": "vitest",

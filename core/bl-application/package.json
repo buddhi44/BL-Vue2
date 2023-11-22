@@ -1,0 +1,18 @@
+{
+  "name": "bl-application",
+  "version": "1.0.0",
+  "description": "Application core module",
+  "main": "lib/index.js",
+  "types": "lib",
+  "scripts": {
+    "build": "npm install && tsc -p ."
+  },
+  "author": "Blue Lotus 360",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^5.3.2"
+  },
+  "dependencies": {
+    "bl-application": "file:"
+  }
+}

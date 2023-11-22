@@ -1,0 +1,1 @@
+export const anotherfile = "this is another fiile"

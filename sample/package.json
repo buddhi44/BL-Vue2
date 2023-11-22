@@ -1,0 +1,20 @@
+{
+  "name": "sample",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node dist/index.js",
+    "build-shared":"npm run --prefix ../core/bl-shared build",
+    "build": "tsc"
+  },
+  "author": "GA",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.9.4",
+    "typescript": "^5.3.2"
+  },
+  "dependencies": {
+    "bl-shared": "file:../core/bl-shared"
+  }
+}

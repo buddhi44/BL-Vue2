@@ -1,0 +1,15 @@
+{
+  "name": "bl-domain",
+  "version": "1.0.0",
+  "description": "Domain module for bl 360'",
+  "main": "lib/index.js",
+  "types": "lib",
+  "scripts": {
+    "build": "npm install && tsc -p ."
+  },
+  "author": "Blue Lotus 360",
+  "license": "ISC",
+  "dependencies": {
+    "bl-domain": "file:"
+  }
+}

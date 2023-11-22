@@ -1,21 +1,30 @@
-# Logs
-BLVueApplication/logs
-BLVueApplication/*.log
-BLVueApplication/npm-debug.log*
-BLVueApplication/yarn-debug.log*
-BLVueApplication/yarn-error.log*
-BLVueApplication/pnpm-debug.log*
-BLVueApplication/lerna-debug.log*
+# vue application
+blvueapplication/logs
+blvueapplication/*.log
+blvueapplication/npm-debug.log*
+blvueapplication/yarn-debug.log*
+blvueapplication/yarn-error.log*
+blvueapplication/pnpm-debug.log*
+blvueapplication/lerna-debug.log*
 
-BLVueApplication/node_modules
-BLVueApplication/.DS_Store
-BLVueApplication/dist
-BLVueApplication/dist-ssr
-BLVueApplication/coverage
-BLVueApplication/*.local
+blvueapplication/.DS_Store
+blvueapplication/dist
+blvueapplication/dist-ssr
+blvueapplication/coverage
+blvueapplication/*.local
 
-BLVueApplication/cypress/videos/
-BLVueApplication/cypress/screenshots/
+blvueapplication/cypress/videos/
+blvueapplication/cypress/screenshots/
+
+# node modules
+**/node_modules
+# compiled files
+core/**/lib
+api-managers/lib
+bl-ui-core/lib
+
+# sample for test 
+sample/dist
 
 # Editor directories and files
 .vscode/*

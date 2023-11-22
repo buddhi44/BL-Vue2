@@ -1,0 +1,19 @@
+{
+  "name": "api-managers",
+  "version": "1.0.0",
+  "description": "Managers and other supporting libs here",
+  "main": "lib/index.js",
+  "types": "lib",
+  "scripts": {
+    "build": "npm install && tsc -p ."
+  },
+  "author": "Gayantha Anushan @ Blue Lotus 360",
+  "license": "ISC",
+  "dependencies": {
+    "api-managers": "file:",
+    "axios": "^1.6.2"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.2"
+  }
+}

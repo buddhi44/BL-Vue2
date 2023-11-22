@@ -1,0 +1,1 @@
+export const hello_base = "hello base is me"
