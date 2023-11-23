@@ -1,4 +1,5 @@
 # vue application
+<<<<<<< HEAD
 logs
 *.log
 npm-debug.log*
@@ -19,6 +20,34 @@ cypress/screenshots/
 # node modules
 node_modules
 
+=======
+blvueapplication/logs
+blvueapplication/*.log
+blvueapplication/npm-debug.log*
+blvueapplication/yarn-debug.log*
+blvueapplication/yarn-error.log*
+blvueapplication/pnpm-debug.log*
+blvueapplication/lerna-debug.log*
+
+blvueapplication/.DS_Store
+blvueapplication/dist
+blvueapplication/dist-ssr
+blvueapplication/coverage
+blvueapplication/*.local
+
+blvueapplication/cypress/videos/
+blvueapplication/cypress/screenshots/
+
+# node modules
+**/node_modules
+# compiled files
+core/**/lib
+api-managers/lib
+bl-ui-core/lib
+
+# sample for test 
+sample/dist
+>>>>>>> aec22a5833aa12b7cd98981c0563619bd417665b
 
 # Editor directories and files
 .vscode/*
