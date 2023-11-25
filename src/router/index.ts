@@ -1,7 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-
 import { useAuthStore } from '@/stores/authstore'
-
 import Login from '@/views/pages/auth/login.vue'
 import Home from '@/views/pages/dashboard/home.vue'
 
@@ -18,7 +16,8 @@ const router = createRouter({
       path: '/login',
       name: 'login',
       component: Login
-    }
+    },
+    
   ]
 })
 

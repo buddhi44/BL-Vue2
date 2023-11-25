@@ -26,7 +26,7 @@ const initialState = {
 const onSubmit = () => 
 {
   const authStore = useAuthStore();
-  
+
   return authStore.login(state.usrname, state.password);
 };
 </script>
@@ -101,7 +101,6 @@ const onSubmit = () =>
       >
         Log In
       </v-btn>
-
     </v-card>
 
     </Form>
