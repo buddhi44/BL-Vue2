@@ -2,8 +2,9 @@ import type {IAuthenticationManager} from "./IAuthenticationManager";
 import axios from 'axios'
 
 export default class AuthenticationManager implements IAuthenticationManager {
+
     async authenticate(request: TokenRequest): TokenResponse {
-        console.log(request)
+        console.log(import.meta.env.INTEGRATION_ID)
         var token : TokenResponse = {
             Token : "t-string",
             RefreshToken : "rt-string",
