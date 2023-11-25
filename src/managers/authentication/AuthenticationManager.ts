@@ -3,7 +3,7 @@ import axios from 'axios'
 
 export default class AuthenticationManager implements IAuthenticationManager {
 
-    async authenticate(request: TokenRequest): TokenResponse {
+    async authenticate(request: TokenRequest): Promise<TokenResponse> {
         console.log(import.meta.env.INTEGRATION_ID)
         var token : TokenResponse = {
             Token : "t-string",
