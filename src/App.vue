@@ -1,6 +1,6 @@
 
 <template>
-          <nav v-show="authStore.authToken" class="navbar navbar-expand navbar-dark bg-dark mx-2">
+        <nav v-show="authStore.authToken" class="navbar navbar-expand navbar-dark bg-dark mx-2">
             <div class="navbar-nav">
                 <RouterLink to="/" class="nav-item nav-link">Home</RouterLink>
                 <a @click="authStore.logout()" class="nav-item nav-link">Logout</a>

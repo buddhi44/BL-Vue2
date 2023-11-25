@@ -3,7 +3,7 @@ import router from '@/router'
 import { fetchWrapper } from '@/managers/helper/fetch_wrapper';
 import { StorageConstant } from '@/core/application/constant/storag_econstants';
 
-const baseUrl: string = `${import.meta.env.BASE_URL}`;
+const baseUrl: string = `${import.meta.env.VITE_BASE_URL}`;
 
 export const useAuthStore = defineStore({
   id: 'auth',
@@ -24,7 +24,7 @@ export const useAuthStore = defineStore({
         IsSuccess : false
       };
       console.log("before request",_tokenRequest)
-      result = await fetchWrapper.post("https://bluelotus360.co/CoreAPI/api/Authentication/Authenticate", _tokenRequest);
+      result = await fetchWrapper.post(baseUrl+'Authentication/Authenticate', _tokenRequest);
       console.log(result)
       if (result != null && result.IsSuccess)
       {
