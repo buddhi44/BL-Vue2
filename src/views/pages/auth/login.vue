@@ -22,6 +22,7 @@
         placeholder="Email address"
         prepend-inner-icon="mdi-email-outline"
         variant="outlined"
+        v-model="username"
       ></v-text-field>
 
       <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">
@@ -43,6 +44,7 @@
         placeholder="Enter your password"
         prepend-inner-icon="mdi-lock-outline"
         variant="outlined"
+        v-model="password"
         @click:append-inner="visible = !visible"
       ></v-text-field>
 
@@ -60,10 +62,10 @@
         color="blue"
         size="large"
         variant="tonal"
+        @click="()=>LoginNow()"
       >
         Log In
       </v-btn>
-
     </v-card>
   </div>
 
@@ -71,8 +73,29 @@
 
 
 <script setup lang="ts">
-
-import { ref, reactive, onMounted } from 'vue';
+import type {IAuthenticationManager} from '../../../managers/authentication/IAuthenticationManager'
+import { ref,inject } from 'vue';
 import bl_logo from '../../../assets/bl360.png'
 const visible = ref(false);
+
+const authManager:IAuthenticationManager = inject("AuthenticationManager")
+
+const username = ref("")
+const password = ref("")
+
+async function  LoginNow(){
+  if(username.value != null && username.value != undefined && username.value != ""){
+    if(password.value != null && password.value != undefined && password.value != ""){
+      var tokenResult = await authManager.authenticate({
+        UserName:username.value,
+        Password:password.value
+      })
+      console.log(tokenResult)
+    }else{
+      alert("Please enter Valid Password!")
+    }
+  }else{
+    alert("Please Insert Valid Username!")
+  }
+}
 </script>
