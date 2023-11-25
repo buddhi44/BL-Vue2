@@ -1,12 +1,22 @@
 
 <template>
-  <RouterView />
+          <nav v-show="authStore.authToken" class="navbar navbar-expand navbar-dark bg-dark mx-2">
+            <div class="navbar-nav">
+                <RouterLink to="/" class="nav-item nav-link">Home</RouterLink>
+                <a @click="authStore.logout()" class="nav-item nav-link">Logout</a>
+            </div>
+        </nav>
+        <div class="container pt-4 pb-4">
+            <RouterView />
+        </div>
 </template>
 
 
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
+import { useAuthStore } from '@/stores/authstore';
 
+const authStore = useAuthStore();
 </script>
 
 <style scoped>

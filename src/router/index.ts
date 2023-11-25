@@ -1,15 +1,37 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Login from '../views/pages/auth/login.vue'
+
+import { useAuthStore } from '@/stores/authstore'
+
+import Login from '@/views/pages/auth/login.vue'
+import Home from '@/views/pages/dashboard/home.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
+  linkActiveClass: 'active',
   routes: [
     {
       path: '/',
       name: 'home',
+      component: Home
+    },
+    {
+      path: '/login',
+      name: 'login',
       component: Login
     }
   ]
 })
+
+router.beforeEach(async (to) => {
+  // redirect to login page if not logged in and trying to access a restricted page
+  const publicPages = ['/login'];
+  const authRequired = !publicPages.includes(to.path);
+  const auth = useAuthStore();
+
+  if (authRequired && !auth.authToken) {
+      auth.returnUrl = to.fullPath;
+      return '/login';
+  }
+});
 
 export default router
