@@ -2,7 +2,7 @@ import type {IAuthenticationManager} from "./IAuthenticationManager";
 import axios from 'axios'
 
 export default class AuthenticationManager implements IAuthenticationManager {
-    async authenticate(request: TokenRequest): TokenResponse {
+    async authenticate(request: TokenRequest): Promise<TokenResponse> {
         console.log(request)
         var token : TokenResponse = {
             Token : "t-string",

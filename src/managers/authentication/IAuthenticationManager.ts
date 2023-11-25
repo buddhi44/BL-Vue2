@@ -1,3 +1,3 @@
 export interface IAuthenticationManager{
-    authenticate(request:TokenRequest):TokenResponse
+    authenticate(request:TokenRequest):Promise<TokenResponse>
 }
