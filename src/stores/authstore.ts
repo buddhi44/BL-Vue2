@@ -2,8 +2,7 @@ import { defineStore } from 'pinia';
 import router from '@/router'
 import { fetchWrapper } from '@/managers/helper/fetch_wrapper';
 import { StorageConstant } from '@/core/application/constant/storag_econstants';
-
-const baseUrl: string = `${import.meta.env.VITE_BASE_URL}`;
+import {TokenEndPoint} from '@/router/token_endpoint'
 
 export const useAuthStore = defineStore({
   id: 'auth',
@@ -18,27 +17,26 @@ export const useAuthStore = defineStore({
         Password: password
       };
 
-      var result : TokenResponse = {
-        Token : "t-string",
-        RefreshToken : "rt-string",
-        IsSuccess : false
-      };
       console.log("before request",_tokenRequest)
-      result = await fetchWrapper.post(baseUrl+'Authentication/Authenticate', _tokenRequest);
-      console.log(result)
+      var result = await fetchWrapper.post(TokenEndPoint.AuthenticateURL, _tokenRequest);
+      
+      
       if (result != null && result.IsSuccess)
       {
         console.log("success")
+        this.authToken = result.Token;
         localStorage.setItem(StorageConstant.AuthToken, JSON.stringify(result.Token));
         localStorage.setItem(StorageConstant.RefreshToken, JSON.stringify(result.RefreshToken));
-        router.push(this.returnUrl || '/');
+        router.push(this.returnUrl || '/companyselection');
       }
       
     },
     logout(): void {
-      //this.authToken = null;
+      this.authToken = null;
       localStorage.removeItem(StorageConstant.AuthToken);
       localStorage.removeItem(StorageConstant.RefreshToken);
+      localStorage.removeItem(StorageConstant.CompanyName);
+      localStorage.removeItem(StorageConstant.IsCompanyAuthAccess);
       router.push('/login');
     },
   },

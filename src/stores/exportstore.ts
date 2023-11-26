@@ -1,2 +1,2 @@
 export * from './authstore';
-export * from './userstore';
+export * from './companystore';

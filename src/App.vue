@@ -1,6 +1,6 @@
 
 <template>
-        <nav v-show="authStore.authToken" class="navbar navbar-expand navbar-dark bg-dark mx-2">
+        <nav v-show="_isCompanyAuthAccess" class="navbar navbar-expand navbar-dark bg-dark mx-2">
             <div class="navbar-nav">
                 <RouterLink to="/" class="nav-item nav-link">Home</RouterLink>
                 <a @click="authStore.logout()" class="nav-item nav-link">Logout</a>
@@ -13,10 +13,15 @@
 
 
 <script setup lang="ts">
+import { ref, reactive, onMounted } from 'vue';
 import { RouterLink, RouterView } from 'vue-router'
 import { useAuthStore } from '@/stores/authstore';
+import { StorageConstant } from '@/core/application/constant/storag_econstants';
+import { boolean } from 'yup';
 
 const authStore = useAuthStore();
+
+const _isCompanyAuthAccess =ref<boolean>(JSON.parse(localStorage.getItem(StorageConstant.AuthToken) || 'null') as boolean )
 </script>
 
 <style scoped>

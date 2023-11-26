@@ -9,17 +9,6 @@ interface RequestOptions {
 
 
 const request = (method: string) => async (url: string, body?: any) => {
-  // const requestOptions: RequestOptions = {
-  //   method,
-  //   headers: authHeader(url),
-  // };
-
-  // if (body) {
-  //   requestOptions.headers['Content-Type'] = 'application/json';
-  //   requestOptions.headers['Accept'] = 'application/json';
-  //   requestOptions.headers['IntegrationID'] = import.meta.env.INTEGRATION_ID;
-  //   requestOptions.body = JSON.stringify(body);
-  // }
   
   const {data}= await axios.post(url,body,{
             headers:{
