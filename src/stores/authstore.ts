@@ -18,8 +18,14 @@ export const useAuthStore = defineStore({
       };
 
       console.log("before request",_tokenRequest)
-      var result = await fetchWrapper.post(TokenEndPoint.AuthenticateURL, _tokenRequest);
-      
+      var res = await fetchWrapper.post(TokenEndPoint.AuthenticateURL, _tokenRequest);
+
+      var result : TokenResponse = {
+        Token:res.token,
+        RefreshToken:res.refreshToken,
+        IsSuccess:res.isSuccess
+      }
+
       
       if (result != null && result.IsSuccess)
       {

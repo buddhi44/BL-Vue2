@@ -8,21 +8,28 @@ interface RequestOptions {
 }
 
 
-const request = (method: string) => async (url: string, body?: any) => {
+const request = (method: string) => async (url: string, body?: any,isAuthenticated:boolean = true) : Promise<any> => {
+  const auth = useAuthStore()
+  var hdr : any = {};
+  if(isAuthenticated){
+    hdr = {
+      "Authorization":`Bearer ${auth.authToken}`,
+      "Content-Type":"application/json",
+      "Accept":"application/json",
+      "IntegrationID":"1aa6a39b-5f54-4905-880a-a52733fd6105" 
+    };
+  }else{
+    hdr = {
+        "Content-Type":"application/json",
+        "Accept":"application/json",
+        "IntegrationID":"1aa6a39b-5f54-4905-880a-a52733fd6105"
+    };
+  }
   
   const {data}= await axios.post(url,body,{
-            headers:{
-                "Content-Type":"application/json",
-                "Accept":"application/json",
-                "IntegrationID":"1aa6a39b-5f54-4905-880a-a52733fd6105"
-            }
+            headers:hdr
   })
-  console.log(data)
-  return {
-    Token:data.token,
-    RefreshToken:data.refreshToken,
-    IsSuccess:data.isSuccess
-  }
+  return data;
 };
 
 export const fetchWrapper = {
