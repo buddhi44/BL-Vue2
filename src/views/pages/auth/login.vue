@@ -5,7 +5,7 @@ import { ref, reactive, onMounted } from 'vue';
 //import { Form, Field } from 'vee-validate';
 //import * as Yup from 'yup';
 
-import bl_logo from '../../../assets/bl360.png'
+import bl_logo from '../../../assets/images/bl-logo.svg'
 import { useAuthStore } from '@/stores/authstore';
 
 const visible = ref(false);
@@ -32,8 +32,8 @@ const onSubmit = () =>
 </script>
 
 <template>
-  
-  <div class="justify-center align-center">
+  <div class="">
+    <div class="justify-center align-center">
     
     <v-img
         class="mx-auto my-6"
@@ -106,7 +106,49 @@ const onSubmit = () =>
     </Form>
     
   </div>
+  </div>
+  
 
 </template>
+
+<style>
+.login-form{
+  background-image:url(../../../assets/images/bg-001.jpg);
+  background-repeat:no-repeat;
+  background-size:cover;
+  background-position:center;
+  overflow:hidden;
+  height: 100vh;
+  background-color: #fff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width:100vw;
+}
+
+._form-08-main{
+  background:#14fcfe17;
+  width:500px;
+  max-width:100%;
+  border-radius:4px;
+  display:block;
+  padding:30px 0px;
+  margin:6% auto 30px auto;
+  position:relative;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+
+}
+
+._form-08-head::before {
+    position: absolute;
+    content: "";
+    background: url(../../../assets/images/shap-01.png);
+    width: 111px;
+    height: 124px;
+    background-repeat: no-repeat;
+    top: 0;
+    right: -12px;
+}
+</style>
 
 

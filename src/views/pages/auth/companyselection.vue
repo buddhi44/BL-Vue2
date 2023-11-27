@@ -3,7 +3,7 @@
 import { storeToRefs } from 'pinia';
 import router from '@/router'
 import { ref, reactive, onMounted } from 'vue';
-import bl_logo from '../../../assets/bl360.png'
+import bl_logo from '../../../assets/images/bl360.png'
 import { useCompanyStore } from '@/stores/companystore';
 import { CompanySelectionModal } from '@/core/application/auth/company';
 
@@ -30,7 +30,7 @@ const onSelectCompany=()=>{
 </script>
 
 <template>
-  
+  <div class="company-form">
   <div class="justify-center align-center">
     
     <v-img
@@ -84,6 +84,22 @@ const onSelectCompany=()=>{
     </Form>
     
   </div>
-
+</div>
 </template> 
+
+<!-- <style>
+.company-form{
+  background-image:url(../../../assets/images/bg-001.jpg);
+  background-repeat:no-repeat;
+  background-size:cover;
+  background-position:center;
+  overflow:hidden;
+  height: 100vh;
+  background-color: #fff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width:100vw;
+}
+</style> -->
 
