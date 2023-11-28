@@ -1,36 +1,18 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
 import { useAuthStore } from '@/stores/authstore'
-import Login from '@/views/pages/auth/login.vue'
-import Home from '@/views/pages/home/home.vue'
-import ComapnySelection from '@/views/pages/auth/companyselection.vue'
-import BuilderPage from '@/views/pages/BuilderPage.vue'
+import MainRoutes from './MainRoutes';
+import AuthRoutes from './AuthRoutes';
 
+let routers:RouteRecordRaw[]=[];
+routers.push(...MainRoutes)
+routers.push(...AuthRoutes)
 
-const router = createRouter({
+const router = createRouter(
+{
   history: createWebHistory(import.meta.env.BASE_URL),
   linkActiveClass: 'active',
-  routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: Home
-    },
-    {
-      path: '/login',
-      name: 'login',
-      component: Login
-    },
-    {
-      path: '/companyselection',
-      name: 'companyselect',
-      component: ComapnySelection
-    },
-    {
-      path:'/form/:UrlController/:UrlAction',
-      name:'building-forms',
-      component:BuilderPage
-    }
-  ]
+  routes: routers
+
 })
 
 router.beforeEach(async (to) => {
@@ -46,3 +28,25 @@ router.beforeEach(async (to) => {
 });
 
 export default router
+
+
+// {
+//   path: '/',
+//   name: 'home',
+//   component: Home
+// },
+// {
+//   path: '/login',
+//   name: 'login',
+//   component: Login
+// },
+// {
+//   path: '/companyselection',
+//   name: 'companyselect',
+//   component: ComapnySelection
+// },
+// {
+//   path:'/form/:UrlController/:UrlAction',
+//   name:'building-forms',
+//   component:BuilderPage
+// }
