@@ -7,24 +7,33 @@ import bl_logo from '../../../assets/images/bl360.png'
 import { useCompanyStore } from '@/stores/companystore';
 import { CompanySelectionModal } from '@/core/application/auth/company';
 
-const companies = ref<CompanySelectionModal[]>([]);
-var selectedCompany=ref<CompanySelectionModal>({ CompanyKey: 1, CompanyName: '-', CompanyCode: '-' }) 
+const companies  = ref<any[]>([]);
+var selectedCompany=ref<any>({ CompanyKey: 1, CompanyName: '-', CompanyCode: '-' }) 
 
 const companystore=useCompanyStore()
 onMounted(async () => {
   
-  await useCompanyStore().getAll(); 
-  companies.value= companystore.companies.map(x=>({
-    CompanyKey:x.CompanyKey,
-    CompanyName:x.CompanyName,
-    CompanyCode:x.CompanyCode
-  }));
+  await companystore.getAll(); 
+  companies.value=companystore.companies ;
+  
+  // companies.value= companystore.companies.map(x=>({
+  //   CompanyKey:x.CompanyKey,
+  //   CompanyName:x.CompanyName,
+  //   CompanyCode:x.CompanyCode
+  // }));
 
-  selectedCompany =ref(companies.value[0])
+  selectedCompany =ref(companies.value[1])
+  console.log(selectedCompany.value)
 });
 
 const onSelectCompany=()=>{
-  companystore.updateSelectedCompany()
+
+  const company:CompanySelectionModal={
+    CompanyKey:selectedCompany.value.companyKey,
+    CompanyCode:selectedCompany.value.companyCode,
+    CompanyName:selectedCompany.value.companyName
+  }
+  companystore.updateSelectedCompany(company)
   
 }
 </script>
@@ -49,9 +58,9 @@ const onSelectCompany=()=>{
       rounded="lg"
     >
       <div class="text-subtitle-1 text-medium-emphasis">Company</div>
-
+        
         <v-autocomplete
-              v-model="selectedCompany.CompanyName"
+              v-model="selectedCompany.companyName"
               :items="companies" 
               color="blue-grey-lighten-2"
               item-title="name"
@@ -63,7 +72,7 @@ const onSelectCompany=()=>{
               <template v-slot:item="{ props, item }">
                 <v-list-item
                   v-bind="props"
-                  :title="item?.raw?.CompanyName"
+                  :title="item?.raw?.companyName"
                 ></v-list-item>
               </template>
             </v-autocomplete>

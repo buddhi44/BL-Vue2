@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { useAuthStore } from '@/stores/authstore'
 import Login from '@/views/pages/auth/login.vue'
-import Home from '@/views/pages/dashboard/home.vue'
+import Home from '@/views/pages/home/home.vue'
 import ComapnySelection from '@/views/pages/auth/companyselection.vue'
 
 

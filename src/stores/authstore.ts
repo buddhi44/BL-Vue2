@@ -18,7 +18,7 @@ export const useAuthStore = defineStore({
       };
 
       console.log("before request",_tokenRequest)
-      var res = await fetchWrapper.post(TokenEndPoint.AuthenticateURL, _tokenRequest);
+      var res = await fetchWrapper.post(TokenEndPoint.AuthenticateURL, _tokenRequest,false);
 
       var result : TokenResponse = {
         Token:res.token,

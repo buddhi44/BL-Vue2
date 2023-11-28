@@ -13,44 +13,30 @@ export const useCompanyStore = defineStore({
         companies: [] as CompanySelectionModal[]
     }),
     actions: {
-        async getAll() {
+        async getAll() 
+        {
             const auth=useAuthStore()
-            const headers = {
-                "Authorization":`Bearer ${auth.authToken}`,
-                "Content-Type":"application/json",
-                "Accept":"application/json",
-                "IntegrationID":"1aa6a39b-5f54-4905-880a-a52733fd6105" 
-              };
-            await axios.post(TokenEndPoint.CompanyListingEndPoint,{CompanyKey:1,CompanyName:'',CompanyCode:''},{headers:headers})
-                              .then(res => {
-                                    this.companies = res.data
-                                })
-                              .catch(error => {
-                                    console.log(error)
-             })
+              var res = await fetchWrapper.post(TokenEndPoint.CompanyListingEndPoint, {CompanyKey:1,CompanyName:'',CompanyCode:''});
+              this.companies=res as CompanySelectionModal[] ;
+              console.log("companies",res)
 
-                
         },
 
-        async updateSelectedCompany(){
+        async updateSelectedCompany(company:CompanySelectionModal)
+        {
+            console.log("selected company",company)
             const auth=useAuthStore()
-            const headers = {
-                "Authorization":`Bearer ${auth.authToken}`,
-                "Content-Type":"application/json",
-                "Accept":"application/json",
-                "IntegrationID":"1aa6a39b-5f54-4905-880a-a52733fd6105" 
-              };
             console.log("company auth before accesss")  
-            await axios.post(TokenEndPoint.CompanySelectedEndPoint,{CompanyKey:156,CompanyName:'Demo - Company',CompanyCode:'DC'},{headers:headers})
+            await fetchWrapper.post(TokenEndPoint.CompanySelectedEndPoint,{CompanyKey:company.CompanyKey,CompanyName:company.CompanyName,CompanyCode:company.CompanyCode})
                             .then(res => {
 
                                 var company_token:TokenResponse={
-                                    Token:res.data.token,
-                                    RefreshToken:res.data.refreshToken,
-                                    IsSuccess:res.data.isSuccess
+                                    Token:res.token,
+                                    RefreshToken:res.refreshToken,
+                                    IsSuccess:res.isSuccess
                                 }
 
-                                console.log(res.data)
+                                console.log(res)
                                 if (company_token != null && company_token.IsSuccess)
                                 {
                                     console.log("company auth success")

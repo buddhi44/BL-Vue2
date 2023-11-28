@@ -26,9 +26,7 @@ const request = (method: string) => async (url: string, body?: any,isAuthenticat
     };
   }
   
-  const {data}= await axios.post(url,body,{
-            headers:hdr
-  })
+  const {data}= await axios.post(url,body,{headers:hdr})
   return data;
 };
 
