@@ -3,7 +3,5 @@ defineProps(["UiElement"])
 </script>
 
 <template>
-    <div>
-        Combo
-    </div>
+    <v-autocomplete :label="UiElement.elementCaption" variant="outlined"></v-autocomplete>
 </template>

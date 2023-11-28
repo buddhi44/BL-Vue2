@@ -15,8 +15,7 @@ onMounted(()=>{
 </script>
 
 <template>
-    <div>
-        <p>Section Format Group</p>
-        <UIBuilder :ContentList="ComponentList" :Parent="Parent" />
-    </div>
+    <v-row>
+        <UIBuilder :SFG="true" :ContentList="ComponentList" :Parent="Parent" />
+    </v-row>
 </template>
