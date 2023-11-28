@@ -11,6 +11,7 @@
     "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false"
   },
   "dependencies": {
+    "@mdi/font": "^7.3.67",
     "axios": "^1.6.2",
     "class-transformer": "^0.5.1",
     "pinia": "^2.1.7",

@@ -1,7 +1,7 @@
 
 <template>
         
-        <div class="container pt-4 pb-4">
+        <div class="">
             <RouterView />
         </div>
 </template>

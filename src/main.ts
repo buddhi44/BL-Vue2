@@ -7,12 +7,13 @@ import * as directives from 'vuetify/directives'
 
 import App from './App.vue'
 import router from './router'
-import { createVuetify } from 'vuetify'
+// import { createVuetify } from 'vuetify'
 import { ManagerPlugin } from './managers/ManagerPlugin'
 import type { AnyObject } from 'yup'
 import '@/assets/scss/style.scss';
 import PerfectScrollbar from 'vue3-perfect-scrollbar';
 import VueTablerIcons from 'vue-tabler-icons';
+import vuetify from './plugins/vuetify';
 
 const app = createApp(App)
 
@@ -25,10 +26,10 @@ const managers : any = {
   install:ManagerPlugin
 }
 
-const vuetify = createVuetify({
-    components,
-    directives,
-  })
+// const vuetify = createVuetify({
+//     components,
+//     directives,
+//   })
 
 app.use(managers)
 
