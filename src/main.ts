@@ -10,7 +10,7 @@ import router from './router'
 import { createVuetify } from 'vuetify'
 import { ManagerPlugin } from './managers/ManagerPlugin'
 import type { AnyObject } from 'yup'
-
+import '@/assets/scss/style.scss';
 const app = createApp(App)
 
 app.use(createPinia())
