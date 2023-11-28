@@ -3,6 +3,7 @@ import { useAuthStore } from '@/stores/authstore'
 import Login from '@/views/pages/auth/login.vue'
 import Home from '@/views/pages/home/home.vue'
 import ComapnySelection from '@/views/pages/auth/companyselection.vue'
+import BuilderPage from '@/views/pages/BuilderPage.vue'
 
 
 const router = createRouter({
@@ -24,6 +25,11 @@ const router = createRouter({
       name: 'companyselect',
       component: ComapnySelection
     },
+    {
+      path:'/form/:UrlController/:UrlAction',
+      name:'building-forms',
+      component:BuilderPage
+    }
   ]
 })
 
