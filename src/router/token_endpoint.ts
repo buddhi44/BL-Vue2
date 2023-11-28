@@ -6,4 +6,5 @@ export  class TokenEndPoint
     static CompanyListingEndPoint: string = baseUrl()+ "Authentication/GetUserCompanies";
     static CompanySelectedEndPoint: string = baseUrl()+"Authentication/UpdateSelectedCompany";
     static FormDefinitionUrl : string = baseUrl() + "Object/FetchObjects";
+    static SideMenuURL : string = baseUrl() + "Object/FetchSideMenu";
 }

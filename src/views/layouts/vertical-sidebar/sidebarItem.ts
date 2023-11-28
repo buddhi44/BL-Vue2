@@ -6,73 +6,19 @@ import {
   LoginIcon, MoodHappyIcon, ApertureIcon, UserPlusIcon
 } from 'vue-tabler-icons';
 
-export interface menu {
-  header?: string;
-  title?: string;
-  icon?: any;
-  to?: string;
-  chip?: string;
-  BgColor?: string;
-  chipBgColor?: string;
-  chipColor?: string;
-  chipVariant?: string;
-  chipIcon?: string;
-  children?: menu[];
-  disabled?: boolean;
-  type?: string;
-  subCaption?: string;
+import { fetchWrapper } from '@/managers/helper/fetch_wrapper'
+import {TokenEndPoint} from '@/router/token_endpoint'
+import { MenuItem } from '@/core/domain/Entities/MenuItem'
+
+var menu_list:any={};
+
+var renderMenu= async()=>{
+  
+  menu_list = await fetchWrapper.get(TokenEndPoint.SideMenuURL)
+  console.log("menu list",menu_list)
 }
+await renderMenu();
 
-const sidebarItem: menu[] = [
-  { header: 'Home' },
-  {
-    title: 'Home',
-    icon: LayoutDashboardIcon,
-    BgColor: 'primary',
-    to: '/'
-  },
-  { header: 'Inventory Management' },
-  {
-    title: "Received And Return",
-    icon: AlertCircleIcon,
-    BgColor: 'primary',
-    to: "/ui/alerts",
-    
-  },
-  {
-    title: "Issue Transfer And Returns",
-    icon: CircleDotIcon,
-    BgColor: 'primary',
-    to: "/ui/buttons",
-  },
 
-  { header: 'Sales Management' },
-  {
-    title: 'Sales Order',
-    icon: LoginIcon,
-    BgColor: 'primary',
-    to: '/auth/login'
-},
-{
-    title: 'Invoice',
-    icon: UserPlusIcon,
-    BgColor: 'primary',
-    to: '/auth/register'
-},
-{ header: 'Reports' },
-{
-    title: 'Account Reports',
-    icon: MoodHappyIcon,
-    BgColor: 'primary',
-    to: '/icons'
-},
-{
-    title: 'Sample Page',
-    icon: ApertureIcon,
-    BgColor: 'primary',
-    to: '/sample-page'
-},
 
-];
-
-export default sidebarItem;
+export default menu_list;

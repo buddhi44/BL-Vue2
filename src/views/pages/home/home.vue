@@ -6,5 +6,5 @@ import FullLayout from '@/views/layouts/FullLayout.vue'
 </script>
 
 <template>
-   <FullLayout/>>
+   <FullLayout/>
 </template>

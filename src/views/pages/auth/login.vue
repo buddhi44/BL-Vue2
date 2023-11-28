@@ -22,7 +22,7 @@ import Logo from '@/views/layouts/logo/Logo.vue';
                               <div class="d-flex justify-center mb-5">
                                   <Logo />
                               </div>
-
+                            
                               <LoginForm />
                               
                           </v-card-item>

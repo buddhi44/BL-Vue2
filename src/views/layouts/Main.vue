@@ -1,17 +1,18 @@
 <script setup lang="ts">
 import { ref, shallowRef } from 'vue';
 import sidebarItems from './vertical-sidebar/sidebarItem';
-import NavGroup from './vertical-sidebar/NavGroup/index.vue';
-import NavItem from './vertical-sidebar/NavItem/index.vue';
+import SideMenu from './vertical-sidebar/SideMenu.vue';
 import Logo from './logo/Logo.vue';
-import { useAuthStore } from '@/stores/authstore';
+
 // Icon Imports
 import { Menu2Icon, BellRingingIcon,Logout2Icon } from 'vue-tabler-icons';
 import NotificationDD from './vertical-header/NotificationDD.vue';
 import ProfileDD from './vertical-header/ProfileDD.vue';
 const sidebarMenu = shallowRef(sidebarItems);
 const sDrawer = ref(true);
-const authStore = useAuthStore();
+
+
+
 
 </script>
 
@@ -21,23 +22,15 @@ const authStore = useAuthStore();
         <div class="pa-5 pl-4 ">
             <Logo />
         </div>
-        <!-- ---------------------------------------------- -->
-        <!---Navigation -->
-        <!-- ---------------------------------------------- -->
+
         <perfect-scrollbar class="scrollnavbar bg-containerBg overflow-y-hidden">
-            <v-list class="py-4 px-4 bg-containerBg">
-                <!---Menu Loop -->
-                <template v-for="(item, i) in sidebarMenu">
-                    <!---Item Sub Header -->
-                    <NavGroup :item="item" v-if="item.header" :key="item.title" />
-                    <!---Single Item-->
-                    <NavItem :item="item" v-else class="leftPadding" />
-                    <!---End Single Item-->
-                </template>
-                <!-- <Moreoption/> -->
-            </v-list>
-            
+            <SideMenu :sidebarMenu="sidebarMenu"/>
+            <div class="py-0 px-6" style="position:fixed;bottom:0;">
+                <v-btn class="mr-2 bg-primary rounded-pill" size="large"
+                    href="https://www.bluelotus360.com/" block target="_blank">Blue Lotus 360</v-btn>
+            </div>  
         </perfect-scrollbar>
+
     </v-navigation-drawer>
     <div class="container verticalLayout">
         <div class="maxWidth">
@@ -53,11 +46,6 @@ const authStore = useAuthStore();
                         <NotificationDD />
                     </div>
                     <div>
-                        <v-btn icon variant="text"  class="custom-hover-primary ml-0 ml-md-5 text-muted" 
-                              @click="authStore.logout()"  size="small">
-                            <Logout2Icon size="20" stroke-width="1.5" />
-                        </v-btn>
-                        <!-- User Profile -->
                         <ProfileDD />
                     </div>
                 </div>

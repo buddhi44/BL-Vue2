@@ -8,7 +8,8 @@ interface RequestOptions {
 }
 
 
-const request = (method: string) => async (url: string, body?: any,isAuthenticated:boolean = true) : Promise<any> => {
+const request = (method: string) => async (url: string, body?: any,isAuthenticated:boolean = true) : Promise<any> => 
+{
   const auth = useAuthStore()
   var hdr : any = {};
   if(isAuthenticated){
@@ -25,9 +26,16 @@ const request = (method: string) => async (url: string, body?: any,isAuthenticat
         "IntegrationID":"1aa6a39b-5f54-4905-880a-a52733fd6105"
     };
   }
+
+  if(method==='GET'){
+    const {data}= await axios.get(url,{headers:hdr})
+    return data;
+  }
+  else if(method==='POST'){
+    const {data}= await axios.post(url,body,{headers:hdr})
+    return data;
+  }
   
-  const {data}= await axios.post(url,body,{headers:hdr})
-  return data;
 };
 
 export const fetchWrapper = {
