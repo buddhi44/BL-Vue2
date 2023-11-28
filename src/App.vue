@@ -1,11 +1,6 @@
 
 <template>
-        <nav v-show="_isCompanyAuthAccess" class="navbar navbar-expand navbar-dark bg-dark mx-2">
-            <div class="navbar-nav">
-                <RouterLink to="/" class="nav-item nav-link">Home</RouterLink>
-                <a @click="authStore.logout()" class="nav-item nav-link">Logout</a>
-            </div>
-        </nav>
+        
         <div class="container pt-4 pb-4">
             <RouterView />
         </div>

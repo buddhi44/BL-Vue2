@@ -6,7 +6,7 @@ import { ref, reactive, onMounted } from 'vue';
 //import * as Yup from 'yup';
 
 import LoginForm from '@/views/components/auth/LoginForm.vue';
-import Logo from '@/views/components/auth/Logo.vue';
+import Logo from '@/views/layouts/logo/Logo.vue';
 
 
 </script>

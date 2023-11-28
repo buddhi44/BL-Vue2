@@ -2,7 +2,7 @@
 
 import { ref, reactive, onMounted } from 'vue';
 import CompanyForm from '@/views/components/auth/CompanySelectionForm.vue';
-import Logo from '@/views/components/auth/Logo.vue';
+import Logo from '@/views/layouts/logo/Logo.vue';
 
 
 </script>
