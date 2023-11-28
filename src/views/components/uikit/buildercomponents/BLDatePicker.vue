@@ -3,5 +3,5 @@ defineProps(["UiElement"])
 </script>
 
 <template>
-    <p>Date Picker</p>
+    <v-text-field :label="UiElement.elementCaption" type="date" ></v-text-field>
 </template>

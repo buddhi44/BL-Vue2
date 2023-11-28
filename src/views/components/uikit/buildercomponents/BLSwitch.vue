@@ -1,9 +1,12 @@
 <script setup lang="ts">
-defineProps(["UiElement"])
+const props = defineProps(["UiElement"])
+console.log(props.UiElement)
 </script>
 
 <template>
-    <div>
-        Switch
-    </div>
+    <v-switch
+    hide-details
+    inset
+    :label="UiElement.elementCaption"
+  ></v-switch>
 </template>
