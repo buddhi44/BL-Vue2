@@ -45,7 +45,6 @@ const onSubmit = () =>
                     :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
                     :type="visible ? 'text' : 'password'"
                     placeholder="Enter your password"
-                    prepend-inner-icon="mdi-lock-outline"
                     variant="outlined"
                     class="border-borderColor"
                     color="primary" 
