@@ -37,12 +37,10 @@ console.log(props.sidebarMenu)
           <div class="mb-1" v-else-if="m.parentId>0" >
             <v-list-item  :value="m?.menuCaption"
                       :to="`${m.controllerName.toLowerCase()}/${m.controllerAction.toLowerCase()}?ElementKey=${m.menuId}`" 
-                      :href="`${m.controllerName.toLowerCase()}/${m.controllerAction.toLowerCase()}?ElementKey=${m.menuId}`" 
                       rounded
                       :class="'bg-hover-primary'" 
                       :color="'primary'" 
-                      :ripple="false" 
-                      :target="''">
+                      :ripple="false" >
             <!---If icon-->
             <template v-slot:prepend>
                 <div :class="'navbox bg-hover-primary'" :color="'primary'">

@@ -6,6 +6,10 @@ import AuthRoutes from './AuthRoutes';
 let routers:RouteRecordRaw[]=[];
 routers.push(...MainRoutes)
 routers.push(...AuthRoutes)
+routers.push({
+  path: '/:pathMatch(.*)*',
+  component: () => import('@/views/components/shared/Error.vue')
+},)
 
 const router = createRouter(
 {

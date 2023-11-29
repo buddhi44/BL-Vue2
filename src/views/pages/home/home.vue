@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
-import FullLayout from '@/views/layouts/FullLayout.vue'
+import FullLayout from '@/views/layouts/BLMainLayout.vue'
 
 
 </script>
