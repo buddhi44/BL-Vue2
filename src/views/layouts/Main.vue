@@ -1,18 +1,15 @@
 <script setup lang="ts">
-import { ref, shallowRef } from 'vue';
+import { ref, shallowRef,onMounted,onActivated } from 'vue';
 import sidebarItems from './vertical-sidebar/sidebarItem';
 import SideMenu from './vertical-sidebar/SideMenu.vue';
 import Logo from './logo/Logo.vue';
-
 // Icon Imports
-import { Menu2Icon, BellRingingIcon,Logout2Icon } from 'vue-tabler-icons';
+import { Menu2Icon, BellRingingIcon,Logout2Icon,HomeIcon } from 'vue-tabler-icons';
 import NotificationDD from './vertical-header/NotificationDD.vue';
 import ProfileDD from './vertical-header/ProfileDD.vue';
+
 const sidebarMenu = shallowRef(sidebarItems);
 const sDrawer = ref(true);
-
-
-
 
 </script>
 
@@ -22,13 +19,33 @@ const sDrawer = ref(true);
         <div class="pa-5 pl-4 ">
             <Logo />
         </div>
-
-        <perfect-scrollbar class="scrollnavbar bg-containerBg overflow-y-hidden">
-            <SideMenu :sidebarMenu="sidebarMenu"/>
-            <div class="py-0 px-6" style="position:fixed;bottom:0;">
+        <div class="py-0 px-6">
                 <v-btn class="mr-2 bg-primary rounded-pill" size="large"
                     href="https://www.bluelotus360.com/" block target="_blank">Blue Lotus 360</v-btn>
-            </div>  
+        </div>
+        <perfect-scrollbar class="scrollnavbar bg-containerBg overflow-y-hidden">
+              
+            <v-list class="py-4 px-4 bg-containerBg">
+                <v-list-item  value="Home"
+                      to="/" 
+                      rounded
+                      :class="'bg-hover-primary'" 
+                      :color="'primary'" 
+                      :ripple="false" >
+            
+                    <template v-slot:prepend>
+                        <div :class="'navbox bg-hover-primary'" :color="'primary'">
+                            <span class="icon-box">
+                                <HomeIcon size="20" stroke-width="1.5" />
+                            </span>
+                        </div>
+                    </template>
+                    <v-list-item-title class="text-subtitle-1 font-weight-medium" :color="'primary'">Home</v-list-item-title>
+            
+                </v-list-item>
+            </v-list>
+            <SideMenu :sidebarMenu="sidebarMenu"/>
+            
         </perfect-scrollbar>
 
     </v-navigation-drawer>

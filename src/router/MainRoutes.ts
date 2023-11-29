@@ -1,4 +1,5 @@
 import { type RouteRecordRaw } from 'vue-router'
+import dynamicRoutes from '@/router/DynamicRoutes'
 
 const MainRoutes:RouteRecordRaw[] = [
     {
@@ -6,24 +7,18 @@ const MainRoutes:RouteRecordRaw[] = [
         meta: {
             requiresAuth: true
         },
-       // redirect:'/'
         component: () => import('@/views/pages/home/home.vue'),
-        children: [
-            {
-                name: 'Dashboard',
-                path: '/',
-                component: () => import('@/views/pages/home/homescreen.vue')
-            },
-       ]
+        children: dynamicRoutes
     },
-    {
-          path:'/form/:UrlController/:UrlAction',
-          name:'building-forms',
-          component: () => import('@/views/pages/BuilderPage.vue'),
-          meta: {
-            requiresAuth: true
-        },
-    }
+    
+    // {
+    //         path:'/form/:UrlController/:UrlAction',
+    //         name:'building-forms',
+    //         component: () => import('@/views/pages/BuilderPage.vue'),
+    //         meta: {
+    //               requiresAuth: true
+    //         },
+    // }
     
 ];
 

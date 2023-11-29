@@ -17,7 +17,7 @@ const uiContent = ref<any>(undefined)
 const formElement = ref<any>(undefined)
 
 onMounted(async ()=>{
-    await LoadFormDefinition()
+    //await LoadFormDefinition()
 })
 
 // watch([route.params,route.query],async ()=>{

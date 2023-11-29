@@ -1,19 +1,15 @@
 
 <script setup lang="ts">
-import { ref, shallowRef } from 'vue';
-import Icon from '../vertical-sidebar/Icon.vue';
+import { ref, shallowRef,onMounted } from 'vue';
+import Icon from './Icon.vue';
 
 const props = defineProps({ sidebarMenu:Object,level: Number});
 var menu=ref<any>(props.sidebarMenu)
-console.log(props.sidebarMenu)
+
 
 </script>
 
 <template>
-    <!-- <v-list class="py-4 px-4 bg-containerBg">
-        <v-list-item prepend-icon="mdi-home" title="Home"></v-list-item>
-    </v-list>
-    <hr/> -->
     <v-list class="py-4 px-4 bg-containerBg">
       
       <div v-for="(m, i) in menu.subMenus">
@@ -36,7 +32,7 @@ console.log(props.sidebarMenu)
 
           <div class="mb-1" v-else-if="m.parentId>0" >
             <v-list-item  :value="m?.menuCaption"
-                      :to="`${m.controllerName.toLowerCase()}/${m.controllerAction.toLowerCase()}?ElementKey=${m.menuId}`" 
+                      :to="`/form/${m.controllerName.toLowerCase()}/${m.controllerAction.toLowerCase()}?ElementKey=${m.menuId}`" 
                       rounded
                       :class="'bg-hover-primary'" 
                       :color="'primary'" 

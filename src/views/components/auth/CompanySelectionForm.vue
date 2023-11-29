@@ -14,12 +14,6 @@ onMounted(async () => {
   
   await companystore.getAll(); 
   companies.value=companystore.companies ;
-  
-  // companies.value= companystore.companies.map(x=>({
-  //   CompanyKey:x.CompanyKey,
-  //   CompanyName:x.CompanyName,
-  //   CompanyCode:x.CompanyCode
-  // }));
 
   selectedCompany =ref(companies.value[1])
   console.log(selectedCompany.value)
@@ -49,7 +43,7 @@ const onSelectCompany=()=>{
             <v-col cols="12">
                 <v-label class="font-weight-medium mb-1">Company</v-label>
                 <v-autocomplete
-                    v-model="selectedCompany.companyName"
+                    v-model="selectedCompany"
                     :items="companies" 
                     color="blue-grey-lighten-2"
                     item-title="name"
@@ -60,8 +54,8 @@ const onSelectCompany=()=>{
 
                     <template v-slot:item="{ props, item }">
                         <v-list-item
-                        v-bind="props"
-                        :title="item?.raw?.companyName"
+                          v-bind="props"
+                          :title="item?.raw?.companyName"
                         ></v-list-item>
                     </template>
                 </v-autocomplete>
