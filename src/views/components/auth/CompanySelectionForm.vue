@@ -43,9 +43,9 @@ const onSelectCompany=()=>{
             <v-col cols="12">
                 <v-label class="font-weight-medium mb-1">Company</v-label>
                 <v-autocomplete
-                    v-model="selectedCompany"
+                    v-model="selectedCompany.companyName"
                     :items="companies" 
-                    color="blue-grey-lighten-2"
+                    color="primary"
                     item-title="name"
                     item-value="name"
                     variant="outlined"
@@ -55,6 +55,7 @@ const onSelectCompany=()=>{
                     <template v-slot:item="{ props, item }">
                         <v-list-item
                           v-bind="props"
+                          :key="item?.raw?.companyKey"
                           :title="item?.raw?.companyName"
                         ></v-list-item>
                     </template>

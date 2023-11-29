@@ -40,8 +40,18 @@ const onSubmit = () =>
             </v-col>
             <v-col cols="12">
                 <v-label class="font-weight-medium mb-1">Password</v-label>
-                <v-text-field variant="outlined" class="border-borderColor" type="password" hide-details
-                    color="primary" v-model="state.password"></v-text-field>
+
+                <v-text-field
+                    :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
+                    :type="visible ? 'text' : 'password'"
+                    placeholder="Enter your password"
+                    prepend-inner-icon="mdi-lock-outline"
+                    variant="outlined"
+                    class="border-borderColor"
+                    color="primary" 
+                    v-model="state.password"
+                    @click:append-inner="visible = !visible"
+                ></v-text-field>
             </v-col>
             <v-col cols="12 " class="py-0">
                 <div class="d-flex flex-wrap align-center w-100 ">
