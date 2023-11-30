@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import {useRoute} from 'vue-router'
-import {onMounted,watch,ref} from 'vue'
+import {onMounted,watch,ref,provide} from 'vue'
 //import type BLUIElement from '../../core/domain/BLUIElement'
 import { fetchWrapper } from '@/managers/helper/fetch_wrapper'
 import {TokenEndPoint} from '@/router/token_endpoint'
 import type ObjectFormRequest from '@/core/domain/ObjectFormRequest'
 import UIBuilder from '@/views/components/uikit/UIBuilder.vue'
+import type IOrder from '@/core/domain/Entities/IOrder'
+import Order from '@/core/domain/Entities/Order'
 
 const route = useRoute();
 
@@ -15,10 +17,15 @@ const objectKey = route.query.ElementKey
 
 const uiContent = ref<any>(undefined)
 const formElement = ref<any>(undefined)
+const contentme = ref<IOrder>(new Order())
+
 
 onMounted(async ()=>{
     await LoadFormDefinition()
 })
+
+// contentme.value["OrderKey"] = 1012;
+// console.log(content.value["OrderKey"])
 
 const LoadFormDefinition = async () => {
     var request : ObjectFormRequest = {
@@ -36,12 +43,15 @@ const LoadFormDefinition = async () => {
     uiContent.value = contList
     formElement.value = element
 }
-
-const CallableFunctions = ref<any[]>([
+provide("baseObject",contentme.value)
+provide("changeBaseObject",(mObject:IOrder) => {
+    contentme.value = mObject;
+})
+provide("actionTriggers",[
     {
         name:"OnInvoiceEditClick",
         action:()=>{
-            alert("Edit Button Clicked!")
+            alert(contentme.value.OrderDate + "")
         }
     },
     {

@@ -1,18 +1,21 @@
 <script setup lang="ts">
-import {ref,onMounted} from 'vue'
-const props = defineProps(["UiElement","actionTriggers"])
+import {ref,onMounted,inject} from 'vue'
+const props = defineProps(["UiElement"])
 
 const myicon = ref<string | undefined>(undefined)
 const myCaption = ref<string>("")
 
-console.log(props.UiElement)
+//console.log(props.UiElement)
 //console.log(props.actionTriggers)
+const actionTriggers2 : any[] | undefined = inject("actionTriggers");
 
 function LaunchOnClickAction(){
-    var functions = props.actionTriggers.filter((item:any)=>{
-        return item.name == props.UiElement.onClickAction
-    })
-    functions[0].action();
+   if(actionTriggers2 != undefined){
+        var functions = actionTriggers2.filter((item:any)=>{
+            return item.name == props.UiElement.onClickAction
+        })
+        functions[0].action();
+   }
 }
 
 if(props.UiElement.iconCss != null || props.UiElement.iconCss != undefined || props.UiElement.iconCss != ""){

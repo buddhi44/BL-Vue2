@@ -2,7 +2,7 @@
 import {ref,onMounted,defineComponent} from 'vue'
 import UIBuilder from '../UIBuilder.vue'
 
-const props = defineProps(["Parent","ComponentList","actionTriggers"])
+const props = defineProps(["Parent","ComponentList"])
 
 const myComponent = ref<any>(undefined)
 
@@ -16,6 +16,6 @@ onMounted(()=>{
 
 <template>
     <v-row>
-        <UIBuilder :actionTriggers="actionTriggers" :isGrid="true" :ContentList="ComponentList" :Parent="Parent" />
+        <UIBuilder  :isGrid="true" :ContentList="ComponentList" :Parent="Parent" />
     </v-row>
 </template>

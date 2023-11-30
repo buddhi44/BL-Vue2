@@ -10,7 +10,7 @@ import BLDatePicker from '@/views/components/uikit/buildercomponents/BLDatePicke
 import BLCombo from '@/views/components/uikit/buildercomponents/BLCombo.vue'
 import BLSwitch from '@/views/components/uikit/buildercomponents/BLSwitch.vue'
 import GridCover from '@/views/components/uikit/buildercomponents/Grid/GridCover.vue'
-const props = defineProps(["ContentList","Parent","isGrid","actionTriggers"])
+const props = defineProps(["ContentList","Parent","isGrid"])
 
 const myComponents = ref<any>(undefined);
 onMounted(()=>{
@@ -23,11 +23,11 @@ onMounted(()=>{
 
 <template>
     <template v-for="com in myComponents">
-        <SectionFormatGroup :actionTriggers="actionTriggers" v-if="com.elementType == 'SectnFrmtGrp'" :Parent="com.elementKey" :ComponentList="ContentList" />
+        <SectionFormatGroup  v-if="com.elementType == 'SectnFrmtGrp'" :Parent="com.elementKey" :ComponentList="ContentList" />
         <PopupWindow v-if="com.elementType == 'PopUpWindow'"/>
         <TextBox :isGrid="isGrid" :UiElement="com" v-if="com.elementType == 'TextBox' || com.elementType == 'NumericBox' || com.elementType == 'TelNumericBox'" />
-        <ButtonGroup :actionTriggers="actionTriggers"  v-if="com.elementType == 'ButtonGroup'"  :Parent="com.elementKey" :ComponentList="ContentList" />
-        <BButton :actionTriggers="actionTriggers" :UiElement="com" v-if="com.elementType == 'Button'" />
+        <ButtonGroup   v-if="com.elementType == 'ButtonGroup'"  :Parent="com.elementKey" :ComponentList="ContentList" />
+        <BButton  :UiElement="com" v-if="com.elementType == 'Button'" />
         <BLDatePicker :isGrid="isGrid" :UiElement="com" v-if="com.elementType == 'DatePicker'" />
         <BLCombo :is-grid="isGrid" :UiElement="com" v-if="com.elementType == 'Cmb'" />
         <BLSwitch :UiElement="com" v-if="com.elementType == 'Switch' || com.elementType == 'MultiRadio'" />
