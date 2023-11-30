@@ -1,6 +1,5 @@
 <script setup lang="ts">
 const props = defineProps(["UiElement"])
-console.log(props.UiElement)
 </script>
 
 <template>

@@ -1,7 +1,10 @@
 <script setup lang="ts">
-defineProps(["UiElement"])
+import BLContainer from '../BLContainer.vue'
+defineProps(["UiElement","isGrid"])
 </script>
 
 <template>
-    <v-text-field :label="UiElement.elementCaption" type="date" ></v-text-field>
+    <BLContainer :is-grid="isGrid" :width="UiElement.width" v-if="UiElement.isVisible">
+        <v-text-field :label="UiElement.elementCaption" type="date" ></v-text-field>
+    </BLContainer>
 </template>

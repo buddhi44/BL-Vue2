@@ -1,8 +1,19 @@
 <script setup lang="ts">
 import {ref,onMounted} from 'vue'
-const props = defineProps(["UiElement"])
+const props = defineProps(["UiElement","actionTriggers"])
 
 const myicon = ref<string>(undefined)
+const myCaption = ref<string>("")
+
+console.log(props.UiElement)
+//console.log(props.actionTriggers)
+
+function LaunchOnClickAction(){
+    var functions = props.actionTriggers.filter((item:any)=>{
+        return item.name == props.UiElement.onClickAction
+    })
+    functions[0].action();
+}
 
 if(props.UiElement.iconCss != null || props.UiElement.iconCss != undefined || props.UiElement.iconCss != ""){
     switch (props.UiElement.iconCss) {
@@ -69,11 +80,20 @@ if(props.UiElement.iconCss != null || props.UiElement.iconCss != undefined || pr
         case "fa-solid fa-floppy-disk":
             myicon.value = "mdi-harddisk"
             break;
+        case "fa-brands fa-get-pocket":
+            myicon.value = "mdi-pocket"
+            break;
+        case "TwoTone.QrCodeScanner":
+            myicon.value = "mdi-qrcode-scan"
+            break;
         default:
-            //console.log(props.UiElement)
+            console.log(props.UiElement.iconCss)
             break;
     }
+    myCaption.value = props.UiElement.elementCaption;
     props.UiElement.elementCaption = undefined
+}else{
+    console.log(props.UiElement)
 }
 onMounted(()=>{
     
@@ -82,8 +102,13 @@ onMounted(()=>{
 </script>
 
 <template>
-    <v-btn v-if="myicon != undefined" size="small" variant="outlined" color="primary" :icon="myicon"></v-btn>
-    <v-btn v-if="myicon == undefined">{{ UiElement.elementCaption }}</v-btn>
+    <v-tooltip :text="myCaption" v-if="myicon != undefined">
+        <template v-slot:activator="{props}">
+            <v-btn size="small" :onclick="() => LaunchOnClickAction()" v-bind="props" variant="outlined" color="primary" :icon="myicon"></v-btn>
+        </template>
+    </v-tooltip>
+    
+    <v-btn :onclick="() => LaunchOnClickAction()" v-if="myicon == undefined">{{ UiElement.elementCaption }}</v-btn>
 </template>
 
 <style></style>
