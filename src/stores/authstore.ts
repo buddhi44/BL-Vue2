@@ -33,6 +33,7 @@ export const useAuthStore = defineStore({
         this.authToken = result.Token;
         localStorage.setItem(StorageConstant.AuthToken, JSON.stringify(result.Token));
         localStorage.setItem(StorageConstant.RefreshToken, JSON.stringify(result.RefreshToken));
+        localStorage.setItem(StorageConstant.UserName, JSON.stringify(username));
         router.push(this.returnUrl || '/companyselection');
       }
       
@@ -42,6 +43,7 @@ export const useAuthStore = defineStore({
       localStorage.removeItem(StorageConstant.AuthToken);
       localStorage.removeItem(StorageConstant.RefreshToken);
       localStorage.removeItem(StorageConstant.CompanyName);
+      localStorage.removeItem(StorageConstant.UserName);
       localStorage.removeItem(StorageConstant.IsCompanyAuthAccess);
       router.push('/login');
     },

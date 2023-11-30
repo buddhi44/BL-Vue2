@@ -1,8 +1,18 @@
 <script setup lang="ts">
 import { UserIcon, MailIcon, ListCheckIcon } from 'vue-tabler-icons';
 import { useAuthStore } from '@/stores/authstore';
+import { StorageConstant } from '@/core/application/constant/storag_econstants';
+import { ref,shallowRef } from 'vue';
 
 const authStore = useAuthStore();
+const localUsrName=ref<any>(localStorage.getItem(StorageConstant.UserName));
+const localCompany=ref<any>(localStorage.getItem(StorageConstant.CompanyName));
+
+let usrname=ref<string>(localUsrName.value??"")
+let company = ref<string>(localCompany.value??"")
+usrname=shallowRef(usrname.value.replace(/^"|"$/g, ''))
+company=shallowRef(company.value.replace(/^"|"$/g, ''))
+
 </script>
 
 <template>
@@ -11,11 +21,19 @@ const authStore = useAuthStore();
     <!-- ---------------------------------------------- -->
     <v-menu :close-on-content-click="false">
         <template v-slot:activator="{ props }">
-            <v-btn class="" variant="text" v-bind="props" icon>
+            <v-list-item
+                :title=usrname
+                :subtitle=company
+          >
+            <template v-slot:append>
+                <v-btn class="" variant="text" v-bind="props" icon>
                 <v-avatar size="35">
                     <img src="@/assets/images/user-1.jpg" height="35" alt="user" />
                 </v-avatar>
             </v-btn>
+            </template>
+          </v-list-item>
+            
         </template>
         <v-sheet rounded="xl" width="200" elevation="10" class="mt-2">
             <v-list class="py-0" lines="one" density="compact">
