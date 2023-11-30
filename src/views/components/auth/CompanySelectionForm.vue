@@ -6,14 +6,19 @@ import bl_logo from '../../../assets/images/bl360.png'
 import { useCompanyStore } from '@/stores/companystore';
 import { CompanySelectionModal } from '@/core/application/auth/company';
 
-const companies  = ref<any[]>([]);
+const companies  = ref<CompanySelectionModal[]>([]);
 var selectedCompany=ref<any>({ CompanyKey: 1, CompanyName: '-', CompanyCode: '-' }) 
 
 const companystore=useCompanyStore()
 onMounted(async () => {
   
   await companystore.getAll(); 
-  companies.value=companystore.companies ;
+  companies.value=companystore.companies;
+companies.value.forEach((data)=>{
+console.log(data.CompanyCode);
+
+})
+  
 
   selectedCompany =ref(companies.value[1])
   console.log(selectedCompany.value)

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, shallowRef,onMounted,onActivated } from 'vue';
+import { ref, shallowRef,onMounted,onBeforeMount } from 'vue';
 import sidebarItems from './vertical-sidebar/sidebarItem';
 import SideMenu from './vertical-sidebar/SideMenu.vue';
 import Logo from './logo/Logo.vue';
@@ -8,8 +8,14 @@ import { Menu2Icon, BellRingingIcon,Logout2Icon,HomeIcon } from 'vue-tabler-icon
 import NotificationDD from './vertical-header/NotificationDD.vue';
 import ProfileDD from './vertical-header/ProfileDD.vue';
 
-const sidebarMenu = shallowRef(sidebarItems);
-const sDrawer = ref(true);
+let sidebarMenu=ref({})
+let sDrawer = ref(false);
+
+onBeforeMount(()=>{
+    sidebarMenu = shallowRef(sidebarItems);
+    sDrawer = ref(true);
+})
+
 
 </script>
 
