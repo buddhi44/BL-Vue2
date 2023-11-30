@@ -7,7 +7,7 @@ const props = defineProps(["Parent","ComponentList","actionTriggers"])
 const myComponent = ref<any>(undefined)
 
 onMounted(()=>{
-    myComponent.value = props.ComponentList.find((itm)=>{
+    myComponent.value = props.ComponentList.find((itm:any)=>{
         return itm.elementKey = props.Parent
     })
 })

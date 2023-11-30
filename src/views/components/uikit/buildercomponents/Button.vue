@@ -2,7 +2,7 @@
 import {ref,onMounted} from 'vue'
 const props = defineProps(["UiElement","actionTriggers"])
 
-const myicon = ref<string>(undefined)
+const myicon = ref<string | undefined>(undefined)
 const myCaption = ref<string>("")
 
 console.log(props.UiElement)
