@@ -24,9 +24,6 @@ onMounted(async ()=>{
     await LoadFormDefinition()
 })
 
-// contentme.value["OrderKey"] = 1012;
-// console.log(content.value["OrderKey"])
-
 const LoadFormDefinition = async () => {
     var request : ObjectFormRequest = {
         MenuKey:Number(objectKey)
@@ -68,7 +65,7 @@ provide("actionTriggers",[
     <v-card elevation="10" class="pa-3" style="width:100%;height:calc(100vh - 140px);background-color: #dbeded;overflow-y:scroll">
         <div class="ma-2">
             <h3 v-if="formElement != null || formElement != undefined">{{ formElement.elementCaption }}</h3>
-            <UIBuilder :actionTriggers="CallableFunctions" :Parent="objectKey" v-if="uiContent != undefined" :ContentList="uiContent" />
+            <UIBuilder :Parent="objectKey" v-if="uiContent != undefined" :ContentList="uiContent" />
         </div>
     </v-card>
 </template>

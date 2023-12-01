@@ -21,6 +21,9 @@ onMounted(()=>{
 //http://localhost:5173/form/transaction/createtransaction?ObjectKey=176046
 </script>
 
+
+
+
 <template>
     <template v-for="com in myComponents">
         <SectionFormatGroup  v-if="com.elementType == 'SectnFrmtGrp'" :Parent="com.elementKey" :ComponentList="ContentList" />
