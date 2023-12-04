@@ -10,14 +10,14 @@ import { StorageConstant } from '@/core/application/constant/storag_econstants';
 export const useCompanyStore = defineStore({
     id: 'companies',
     state: () => ({
-        companies: [] as CompanySelectionModal[]
+        companies: [] as any 
     }),
     actions: {
         async getAll() 
         {
             const auth=useAuthStore()
               var res = await fetchWrapper.post(TokenEndPoint.CompanyListingEndPoint, {CompanyKey:1,CompanyName:'',CompanyCode:''});
-              this.companies=res as CompanySelectionModal[] ;
+              this.companies=res as any;
               console.log("companies",res)
 
         },
@@ -44,7 +44,7 @@ export const useCompanyStore = defineStore({
 
                                     localStorage.setItem(StorageConstant.AuthToken, JSON.stringify(company_token.Token));
                                     localStorage.setItem(StorageConstant.RefreshToken, JSON.stringify(company_token.RefreshToken));
-                                    localStorage.setItem(StorageConstant.CompanyName, JSON.stringify('Demo - Company'));
+                                    localStorage.setItem(StorageConstant.CompanyName, JSON.stringify(company.CompanyName));
                                     localStorage.setItem(StorageConstant.IsCompanyAuthAccess, JSON.stringify(true));
                                     router.push('/');
                                 }

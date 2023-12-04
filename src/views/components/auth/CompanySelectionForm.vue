@@ -6,31 +6,37 @@ import bl_logo from '../../../assets/images/bl360.png'
 import { useCompanyStore } from '@/stores/companystore';
 import { CompanySelectionModal } from '@/core/application/auth/company';
 
-const companies  = ref<CompanySelectionModal[]>([]);
-var selectedCompany=ref<any>({ CompanyKey: 1, CompanyName: '-', CompanyCode: '-' }) 
+const companies  = ref<any[]>([]);
+var selectedCompany=ref<any>({ val: {}, name: '-',code:'-' }) 
 
 const companystore=useCompanyStore()
 onMounted(async () => {
   
   await companystore.getAll(); 
-  companies.value=companystore.companies;
-companies.value.forEach((data)=>{
-console.log(data.CompanyCode);
-
-})
-  
-
+  var companiesList=companystore.companies;
+  var companiesTemp:any[] = [];
+    for(var c of companiesList){
+        companiesTemp = companiesTemp.concat({
+                    val:c,
+                    name:c.companyName,
+                    code:c.companyCode
+                })
+    }
+    companies.value=companiesTemp;
+    
   selectedCompany =ref(companies.value[1])
-  console.log(selectedCompany.value)
+  console.log("default company",selectedCompany)
 });
 
 const onSelectCompany=()=>{
 
   const company:CompanySelectionModal={
-    CompanyKey:selectedCompany.value.companyKey,
-    CompanyCode:selectedCompany.value.companyCode,
-    CompanyName:selectedCompany.value.companyName
+    CompanyKey:selectedCompany.value.val.companyKey,
+    CompanyCode:selectedCompany.value.val.companyCode,
+    CompanyName:selectedCompany.value.val.companyName
   }
+
+  console.log(selectedCompany)
   companystore.updateSelectedCompany(company)
   
 }
@@ -48,23 +54,14 @@ const onSelectCompany=()=>{
             <v-col cols="12">
                 <v-label class="font-weight-medium mb-1">Company</v-label>
                 <v-autocomplete
-                    v-model="selectedCompany.companyName"
+                    v-model=selectedCompany.val
                     :items="companies" 
                     color="primary"
+                    item-value="val" 
                     item-title="name"
-                    item-value="name"
                     variant="outlined"
-                    clearable
-                    >
-
-                    <template v-slot:item="{ props, item }">
-                        <v-list-item
-                          v-bind="props"
-                          :key="item?.raw?.companyKey"
-                          :title="item?.raw?.companyName"
-                        ></v-list-item>
-                    </template>
-                </v-autocomplete>
+                    clearable>
+                </v-autocomplete>  
             </v-col>
             
             
