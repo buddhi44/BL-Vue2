@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref, shallowRef,onMounted,onBeforeMount } from 'vue';
-import sidebarItems from './vertical-sidebar/sidebarItem';
+import { ref, shallowRef,onMounted,onBeforeMount,watch,getCurrentInstance   } from 'vue';
+import {renderMenu} from './vertical-sidebar/sidebarItem';
 import SideMenu from './vertical-sidebar/SideMenu.vue';
 import Logo from './logo/Logo.vue';
 // Icon Imports
@@ -8,14 +8,20 @@ import { Menu2Icon, BellRingingIcon,Logout2Icon,HomeIcon } from 'vue-tabler-icon
 import NotificationDD from './vertical-header/NotificationDD.vue';
 import ProfileDD from './vertical-header/ProfileDD.vue';
 
-let sidebarMenu=ref({})
-let sDrawer = ref(false);
+let sidebarMenu=ref<any>({})
+let sDrawer = ref(true);
+const dataLoaded = ref(false);
 
-onBeforeMount(()=>{
-    sidebarMenu = shallowRef(sidebarItems);
-    sDrawer = ref(true);
+
+
+onBeforeMount(async()=>{
+    
+    sidebarMenu = ref(await renderMenu());  
+    
+    dataLoaded.value=true;
+    
+    console.log("sidebar menu",sidebarMenu)
 })
-
 
 </script>
 
@@ -50,7 +56,7 @@ onBeforeMount(()=>{
             
                 </v-list-item>
             </v-list>
-            <SideMenu :sidebarMenu="sidebarMenu"/>
+            <SideMenu v-if=dataLoaded :sidebarMenu="sidebarMenu"/>
             
         </perfect-scrollbar>
 

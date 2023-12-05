@@ -29,12 +29,15 @@ export const useAuthStore = defineStore({
       
       if (result != null && result.IsSuccess)
       {
-        console.log("success")
+        
+        // const { header, payload } = VueJwtDecode.decode(result.Token)
+        // console.log("decoded token",payload)
+
         this.authToken = result.Token;
         localStorage.setItem(StorageConstant.AuthToken, JSON.stringify(result.Token));
         localStorage.setItem(StorageConstant.RefreshToken, JSON.stringify(result.RefreshToken));
         localStorage.setItem(StorageConstant.UserName, JSON.stringify(username));
-        router.push(this.returnUrl || '/companyselection');
+        router.push('/companyselection');
       }
       
     },
@@ -47,5 +50,18 @@ export const useAuthStore = defineStore({
       localStorage.removeItem(StorageConstant.IsCompanyAuthAccess);
       router.push('/login');
     },
+
+    getAuthenticationState():any{
+
+    },
+
+    // isTokenExpired():boolean{
+    //   const token = this.authToken;
+    //   const decodedToken = jwt.decode(token, { complete: true });
+
+    //   const currentTime = Math.floor(Date.now() / 1000); 
+    //   return decodedToken.exp < currentTime;
+
+    // }
   },
 });
