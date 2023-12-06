@@ -6,8 +6,8 @@ import { fetchWrapper } from '@/managers/helper/fetch_wrapper'
 import {TokenEndPoint} from '@/router/token_endpoint'
 import type ObjectFormRequest from '@/core/domain/ObjectFormRequest'
 import UIBuilder from '@/views/components/uikit/UIBuilder.vue'
-import type IOrder from '@/core/domain/Entities/IOrder'
-import Order from '@/core/domain/Entities/Order'
+import type {IOrder} from '@/core/domain/Entities/IOrder'
+import {Order} from '@/core/domain/Entities/Order'
 
 const route = useRoute();
 
@@ -18,6 +18,9 @@ const objectKey = route.query.ElementKey
 const uiContent = ref<any>(undefined)
 const formElement = ref<any>(undefined)
 const contentme = ref<IOrder>(new Order())
+const controlVariables = ref<any>({
+    ShiftPopUp:false
+})
 
 
 onMounted(async ()=>{
@@ -40,6 +43,7 @@ const LoadFormDefinition = async () => {
     uiContent.value = contList
     formElement.value = element
 }
+provide("controls",controlVariables.value)
 provide("baseObject",contentme.value)
 provide("changeBaseObject",(mObject:IOrder) => {
     contentme.value = mObject;
@@ -48,13 +52,50 @@ provide("actionTriggers",[
     {
         name:"OnInvoiceEditClick",
         action:()=>{
-            alert(contentme.value.OrderDate + "")
+            controlVariables.value.ShiftPopUp = true;
+            console.log("acted")
         }
     },
     {
         name:"OnOrderNewClick",
         action:()=>{
-            alert("New Order Clicked!")
+            //alert("New Order Clicked!")
+        }
+    },
+    {
+        name:"OnOrderLocationChanged",
+        action:(data:any)=>{
+            //alert("hhikis")
+        }
+    },
+    {
+        name:"OnRouteComboChange",
+        action:(data:any)=>{
+            //alert("New Order Clicked!")
+        }
+    },
+    {
+        name:"OnOrderCustomerChanged",
+        action:(data:any)=>{
+            //alert("hooo")
+        }
+    },
+    {
+        name:"OnOrderRepChanged",
+        action:(data:any)=>{
+            //alert("New Order Clicked!")
+        }
+    },
+    {
+        name:"OnPayementTermChanged",
+        action:(data:any)=>{
+            //alert("yahooo")
+        }
+    },
+    {
+        name:"OnTransactionItemChange",
+        action:(data:any)=>{
+            //
         }
     }
 ])

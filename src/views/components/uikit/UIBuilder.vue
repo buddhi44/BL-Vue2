@@ -27,7 +27,7 @@ onMounted(()=>{
 <template>
     <template v-for="com in myComponents">
         <SectionFormatGroup  v-if="com.elementType == 'SectnFrmtGrp'" :Parent="com.elementKey" :ComponentList="ContentList" />
-        <PopupWindow v-if="com.elementType == 'PopUpWindow'"/>
+        <PopupWindow v-if="com.elementType == 'PopUpWindow'" :Parent="com.elementKey" :ComponentList="ContentList"/>
         <TextBox :isGrid="isGrid" :UiElement="com" v-if="com.elementType == 'TextBox' || com.elementType == 'NumericBox' || com.elementType == 'TelNumericBox'" />
         <ButtonGroup   v-if="com.elementType == 'ButtonGroup'"  :Parent="com.elementKey" :ComponentList="ContentList" />
         <BButton  :UiElement="com" v-if="com.elementType == 'Button'" />
