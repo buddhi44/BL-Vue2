@@ -8,6 +8,7 @@ import '@/assets/scss/style.scss';
 import PerfectScrollbar from 'vue3-perfect-scrollbar';
 import VueTablerIcons from 'vue-tabler-icons';
 import vuetify from './plugins/vuetify';
+import VueApexCharts from 'vue3-apexcharts';
 
 const app = createApp(App)
 
@@ -15,7 +16,7 @@ app.use(createPinia())
 app.use(router)
 app.use(PerfectScrollbar);
 app.use(VueTablerIcons);
-
+app.use(VueApexCharts);
 const managers : any = {
   install:ManagerPlugin
 }

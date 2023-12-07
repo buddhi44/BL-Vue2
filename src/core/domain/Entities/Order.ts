@@ -21,6 +21,10 @@ export class Order implements IOrder {
     TransactionItem: KeyValuePairs = new kvp();
     OrderLineLocation: KeyValuePairs = new kvp();
     SelectedOrderItem: IOrderItem = new OrderItem();
+
+    constructor(){
+        this.OrderLocation = new kvp();
+    }
 }
 
 export class OrderItem implements IOrderItem{

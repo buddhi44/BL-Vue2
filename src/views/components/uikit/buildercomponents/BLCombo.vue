@@ -1,15 +1,20 @@
 <script setup lang="ts">
-import {ref,inject,watchEffect} from 'vue'
+import {ref,inject,watchEffect,onMounted} from 'vue'
 import BLContainer from '../BLContainer.vue';
 import { fetchWrapper } from '@/managers/helper/fetch_wrapper'
 import base_end_point from '@/router/base_end_point';
 import type {KeyValuePairs} from '@/core/domain/Entities/KeyValuePairs'
+import Vuetify from 'vuetify';
 
 const props = defineProps(["UiElement","isGrid"])
 
 const kvPairs = ref<KeyValuePairs[]>([])
 const selectedPair = ref<KeyValuePairs>()
 var basecontent : any = inject("baseObject");
+
+onMounted(()=>{
+    selectedPair== ref<KeyValuePairs>()
+})
 
 getData()
 
@@ -129,6 +134,8 @@ async function getData(){
     // }
     //console.log(basecontent[props.UiElement.defaultAccessPath])
 }
+
+
 
 </script>
 

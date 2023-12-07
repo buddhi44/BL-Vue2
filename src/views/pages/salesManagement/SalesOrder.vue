@@ -21,7 +21,7 @@ const contentme = ref<IOrder>(new Order())
 const controlVariables = ref<any>({
     ShiftPopUp:false
 })
-
+const formRef = ref<any>(null);
 
 onMounted(async ()=>{
     await LoadFormDefinition()
@@ -59,7 +59,9 @@ provide("actionTriggers",[
     {
         name:"OnOrderNewClick",
         action:()=>{
-            //alert("New Order Clicked!")
+            //alert("new click")
+            contentme.value =new Order()
+            reset();
         }
     },
     {
@@ -100,13 +102,23 @@ provide("actionTriggers",[
     }
 ])
 
+const reset= ()=> {
+    formRef.value.resetForm()
+}
+
+const save=()=>{
+
+}
 </script>
 
 <template>
     <v-card elevation="10" class="pa-3" style="width:100%;height:calc(100vh - 140px);background-color: #dbeded;overflow-y:scroll">
         <div class="ma-2">
-            <h3 v-if="formElement != null || formElement != undefined">{{ formElement.elementCaption }}</h3>
-            <UIBuilder :Parent="objectKey" v-if="uiContent != undefined" :ContentList="uiContent" />
+            <h3 class="mb-5" v-if="formElement != null || formElement != undefined">{{ formElement.elementCaption }}</h3>
+            <v-form ref="form">
+                <UIBuilder :Parent="objectKey" v-if="uiContent != undefined" :ContentList="uiContent" />
+            </v-form>
+            
         </div>
     </v-card>
 </template>
