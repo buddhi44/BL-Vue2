@@ -12,17 +12,16 @@ const kvPairs = ref<KeyValuePairs[]>([])
 const selectedPair = ref<KeyValuePairs>()
 var basecontent : any = inject("baseObject");
 var css_class=ref<any>();
-
+var isEditable=ref<boolean>(true)
 
 onMounted(()=>{
     selectedPair== ref<KeyValuePairs>()
     css_class.value=props.UiElement.isVisible?props.UiElement?.cssClass:"d-none"
     css_class.value=css_class.value+ (props.UiElement.isMust?" required":"")
     console.log("css",css_class.value)
+
+    getData()
 })
-
-getData()
-
 
 watchEffect(()=>{
     
@@ -47,7 +46,7 @@ watchEffect(()=>{
 
 
 //console.log(kvPairs)
-function OnValueChanged(e:any){
+const OnValueChanged=(e:any)=>{
     var xx = kvPairs.value.find((item)=>{
         return item.value == e
     })
@@ -56,7 +55,7 @@ function OnValueChanged(e:any){
 
 const actionTriggers2 : any[] | undefined = inject("actionTriggers");
 
-function LaunchOnClickAction(data : any){
+const LaunchOnClickAction=(data : any)=>{
    if(actionTriggers2 != undefined){
         var functions = actionTriggers2.filter((item:any)=>{
             return item.name == props.UiElement.onClickAction
@@ -65,10 +64,13 @@ function LaunchOnClickAction(data : any){
    }
 }
 
-async function getData(){
+const getData=async (searchText="")=>{
     var content = await fetchWrapper.post(`${base_end_point()}${props.UiElement.urlController}/${props.UiElement.urlAction}`,{
-        RequestingElementKey : props.UiElement.elementKey
+        RequestingElementKey : props.UiElement.elementKey,
+        SearchQuery:searchText,
+
     })
+
     var lp:KeyValuePairs[] = [];
     switch(props.UiElement.elementID){
         case "CodeBase":
@@ -140,7 +142,29 @@ async function getData(){
     //console.log(basecontent[props.UiElement.defaultAccessPath])
 }
 
+const customFilter= (itemTitle:string, queryText:string, item:any) =>{
 
+        let combo_item_list:KeyValuePairs[]=[]
+        let combo_item_name:string = item.raw.name.toLowerCase()
+        let searchText:string =''
+
+        if (queryText === null || queryText === undefined || queryText.trim() === '') 
+        {
+            //getData();
+            //combo_item_list= kvPairs.value;
+        } 
+        else {
+
+            searchText = queryText.toLowerCase()
+            if (props.UiElement?.isServerFiltering && searchText.length>2) {
+                getData(searchText);
+            }
+            //combo_item_list= kvPairs.value.filter((x:any) => x.name !== null && x.name.includes(queryText.toLowerCase()));
+            
+        
+        }
+        return combo_item_name.indexOf(searchText) > -1 
+}
 
 </script>
 
@@ -152,6 +176,7 @@ async function getData(){
                         item-title="name" 
                         :label="UiElement.elementCaption" 
                         variant="outlined"
+                        :disabled="!isEditable"
                         :class="css_class"></v-autocomplete>
     </b-l-container>
 </template>
