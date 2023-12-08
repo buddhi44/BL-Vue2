@@ -9,7 +9,7 @@ const myCaption = ref<string>("")
 //console.log(props.actionTriggers)
 const actionTriggers2 : any[] | undefined = inject("actionTriggers");
 
-function LaunchOnClickAction(){
+const LaunchOnClickAction=()=>{
    if(actionTriggers2 != undefined){
         var functions = actionTriggers2.filter((item:any)=>{
             return item.name == props.UiElement.onClickAction
@@ -18,6 +18,7 @@ function LaunchOnClickAction(){
    }
 }
 
+onMounted(()=>{
 if(props.UiElement.iconCss != null || props.UiElement.iconCss != undefined || props.UiElement.iconCss != ""){
     switch (props.UiElement.iconCss) {
         case "fa-solid fa-user-plus":
@@ -98,7 +99,8 @@ if(props.UiElement.iconCss != null || props.UiElement.iconCss != undefined || pr
 }else{
     console.log(props.UiElement)
 }
-onMounted(()=>{
+
+    
 })
 
 </script>
@@ -106,7 +108,7 @@ onMounted(()=>{
 <template>
     <v-tooltip :text="myCaption" >
         <template v-slot:activator="{props}">
-            <v-btn :onclick="() => LaunchOnClickAction()" v-bind="props" color="primary" size="large" flat :class="`${props.UiElement?.cssClass} mx-2`">{{ myCaption }}</v-btn>
+            <v-btn :onclick="() => LaunchOnClickAction()" v-bind="props" color="primary" size="small"  :icon="myicon"></v-btn>
         </template>
     </v-tooltip>
 </template>

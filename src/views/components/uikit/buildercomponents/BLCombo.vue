@@ -1,15 +1,25 @@
 <script setup lang="ts">
-import {ref,inject,watchEffect} from 'vue'
+import {ref,inject,watchEffect,onMounted} from 'vue'
 import BLContainer from '../BLContainer.vue';
 import { fetchWrapper } from '@/managers/helper/fetch_wrapper'
 import base_end_point from '@/router/base_end_point';
 import type {KeyValuePairs} from '@/core/domain/Entities/KeyValuePairs'
+import Vuetify from 'vuetify';
 
 const props = defineProps(["UiElement","isGrid"])
 
 const kvPairs = ref<KeyValuePairs[]>([])
 const selectedPair = ref<KeyValuePairs>()
 var basecontent : any = inject("baseObject");
+var css_class=ref<any>();
+
+
+onMounted(()=>{
+    selectedPair== ref<KeyValuePairs>()
+    css_class.value=props.UiElement.isVisible?props.UiElement?.cssClass:"d-none"
+    css_class.value=css_class.value+ (props.UiElement.isMust?" required":"")
+    console.log("css",css_class.value)
+})
 
 getData()
 
@@ -129,10 +139,18 @@ async function getData(){
     //console.log(basecontent[props.UiElement.defaultAccessPath])
 }
 
+
+
 </script>
 
 <template>
     <b-l-container :is-grid="isGrid" :width="UiElement.width" v-if="UiElement.isVisible" >
-        <v-autocomplete v-model="selectedPair" @update:model-value="OnValueChanged" :items="kvPairs" item-title="name" :label="UiElement.elementCaption" variant="outlined"></v-autocomplete>
+        <v-autocomplete v-model="selectedPair" 
+                        @update:model-value="OnValueChanged" 
+                        :items="kvPairs" 
+                        item-title="name" 
+                        :label="UiElement.elementCaption" 
+                        variant="outlined"
+                        :class="css_class"></v-autocomplete>
     </b-l-container>
 </template>

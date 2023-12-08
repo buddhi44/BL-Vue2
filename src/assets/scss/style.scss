@@ -13,3 +13,9 @@
 @import './pages/dashboards';
 @import './pages/authentication';
 @import 'vue3-perfect-scrollbar/dist/vue3-perfect-scrollbar.css';
+
+.required .v-input__control::after {
+    content: "*";
+    color: red;
+    font-size: 23px;
+  }

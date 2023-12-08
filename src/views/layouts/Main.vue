@@ -12,6 +12,8 @@ let sidebarMenu=ref<any>({})
 let sDrawer = ref(true);
 const dataLoaded = ref(false);
 
+var loaded= ref<boolean>(false) 
+var loading= ref<boolean>(false) 
 
 
 onBeforeMount(async()=>{
@@ -23,6 +25,14 @@ onBeforeMount(async()=>{
     console.log("sidebar menu",sidebarMenu)
 })
 
+const onClick= ()=> {
+        loading.value = true
+
+        setTimeout(() => {
+          loading.value = false
+          loaded.value = true
+        }, 2000)
+      }
 </script>
 
 <template>
@@ -66,15 +76,29 @@ onBeforeMount(async()=>{
             <v-app-bar elevation="0" height="70">
                 <div class="d-flex align-center justify-space-between w-100">
                     <div>
-                        <v-btn class="hidden-lg-and-up text-muted" 
+                        <v-btn class="text-muted" 
                                @click="sDrawer = !sDrawer" icon
                                variant="flat" size="small">
                             <Menu2Icon size="20" stroke-width="1.5" />
                         </v-btn>
 
-                        <NotificationDD />
+                        
                     </div>
-                    <div>
+                    <div class="d-inline-flex">
+                        
+                        <v-text-field
+                            :loading="loading"
+                            density="comfortable"
+                            variant="outlined"
+                            label="Search Menus"
+                            append-inner-icon="mdi-magnify"
+                            single-line
+                            hide-details
+                            @click:append-inner="onClick"
+                            style="width:300px;"
+                        ></v-text-field>
+                        <NotificationDD />
+                     
                         <ProfileDD />
                     </div>
                 </div>
