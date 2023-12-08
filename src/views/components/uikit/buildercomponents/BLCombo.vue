@@ -63,7 +63,6 @@ function LaunchOnClickAction(data : any){
         functions[0].action(data);
    }
 }
-
 async function getData(){
     var content = await fetchWrapper.post(`${base_end_point()}${props.UiElement.urlController}/${props.UiElement.urlAction}`,{
         RequestingElementKey : props.UiElement.elementKey

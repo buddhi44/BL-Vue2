@@ -13,9 +13,19 @@ export type IOrder = {
     OrderPaymentTerm:KeyValuePairs,
     TransactionItem:KeyValuePairs,
     OrderLineLocation:KeyValuePairs,
-    SelectedOrderItem:IOrderItem
+    SelectedOrderItem:IOrderItem,
+    OrderLineItems:IOrderItem[]
 }
 
 export type IOrderItem = {
-    TransactionUnit:KeyValuePairs
+    LineNumber:number,
+    ItemName:string,
+    TransactionRate:number,
+    TransactionUnit:KeyValuePairs,
+    TransactionQuantity:number,
+    SubTotal:number,
+    LineDiscount:number,
+    HeaderDiscountAmount:number,
+    GrossTotal:number,
+    ItemTaxType1Per:number,
 }

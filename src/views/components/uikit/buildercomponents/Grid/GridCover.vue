@@ -1,14 +1,21 @@
 <script setup lang="ts">
 import {ref} from 'vue'
 import UIBuilder from '../../UIBuilder.vue'
+import { inject,watchEffect } from 'vue';
 const props = defineProps(["Parent","ComponentList"])
 
 
 const headerList = ref<any[]>([])
 
+var gridData : any[] = ref<any[]>([])
+
+watchEffect(()=>{
+    gridData.values = inject("GRID_DATA")
+})
+
 if(props.Parent != undefined && props.ComponentList != undefined){
-    var headerList2 = []
-    var childListm = props.ComponentList.filter((item)=>{
+    var headerList2 : any[] = []
+    var childListm = props.ComponentList.filter((item : any)=>{
         if(item.parentKey == props.Parent){
             return true
         }else{
@@ -22,6 +29,7 @@ if(props.Parent != undefined && props.ComponentList != undefined){
             sortable:true,
             key:ch.defaultAccessPath
         })
+        console.log(ch.defaultAccessPath)
     }
     headerList.value = headerList2;
 }else{
@@ -34,6 +42,7 @@ if(props.Parent != undefined && props.ComponentList != undefined){
     <v-data-table
     v-if="headerList.length > 0"
     :headers="headerList"
+    :items="gridData"
     ></v-data-table>
     <!-- <UIBuilder :Parent="Parent" :ContentList="ComponentList" /> -->
 </template>
