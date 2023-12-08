@@ -41,7 +41,6 @@ watchEffect(()=>{
             basecontent[dts[0]][dts[1]][dts[2]] = selectedPair.value
         }
     }
-    //console.log(basecontent)
 })
 
 

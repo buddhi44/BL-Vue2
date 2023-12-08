@@ -7,7 +7,8 @@ import {TokenEndPoint} from '@/router/token_endpoint'
 import type ObjectFormRequest from '@/core/domain/ObjectFormRequest'
 import UIBuilder from '@/views/components/uikit/UIBuilder.vue'
 import type {IOrder} from '@/core/domain/Entities/IOrder'
-import {Order} from '@/core/domain/Entities/Order'
+import {Order, OrderItem} from '@/core/domain/Entities/Order'
+import { date } from 'yup'
 
 const route = useRoute();
 
@@ -45,6 +46,7 @@ const LoadFormDefinition = async () => {
 }
 provide("controls",controlVariables.value)
 provide("baseObject",contentme.value)
+provide("GRID_DATA",contentme.value.OrderLineItems)
 provide("changeBaseObject",(mObject:IOrder) => {
     contentme.value = mObject;
 })
@@ -98,6 +100,12 @@ provide("actionTriggers",[
         name:"OnTransactionItemChange",
         action:(data:any)=>{
             //
+        }
+    },{
+        name:"OnAddItemButtonClick",
+        action:() => {
+            contentme.value.OrderLineItems = contentme.value.OrderLineItems.concat(new OrderItem())
+            console.log(contentme.value.OrderLineItems)
         }
     }
 ])
