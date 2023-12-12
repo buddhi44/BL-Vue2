@@ -61,9 +61,14 @@ provide("actionTriggers",[
     {
         name:"OnOrderNewClick",
         action:()=>{
+
+            uiContent.value.forEach((x:any)=> x._internalElementName==="Quantity"?
+                                                        x.isEnable=false:x.isEditable=true)
+
+            console.log(uiContent.value.filter((x:any)=> x._internalElementName==="Quantity"))
             //alert("new click")
-            contentme.value =new Order()
-            reset();
+            //contentme.value =new Order()
+            //reset();
         }
     },
     {
