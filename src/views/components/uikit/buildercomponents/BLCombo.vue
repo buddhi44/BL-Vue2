@@ -41,6 +41,7 @@ watchEffect(()=>{
             basecontent[dts[0]][dts[1]][dts[2]] = selectedPair.value
         }
     }
+    //console.log(basecontent)
 })
 
 
@@ -145,24 +146,22 @@ const customFilter= (itemTitle:string, queryText:string, item:any) =>{
 
         let combo_item_list:KeyValuePairs[]=[]
         let combo_item_name:string = item.raw.name.toLowerCase()
-        let searchText:string =''
 
         if (queryText === null || queryText === undefined || queryText.trim() === '') 
         {
-            //getData();
-            //combo_item_list= kvPairs.value;
+            getData();
+            combo_item_list= kvPairs.value;
         } 
         else {
 
-            searchText = queryText.toLowerCase()
-            if (props.UiElement?.isServerFiltering && searchText.length>2) {
-                getData(searchText);
-            }
-            //combo_item_list= kvPairs.value.filter((x:any) => x.name !== null && x.name.includes(queryText.toLowerCase()));
-            
-        
+        let searchText = queryText.toLowerCase()
+        if (props.UiElement?.isServerFiltering) {
+            getData(searchText);
         }
+        combo_item_list= kvPairs.value.filter((x:any) => x.name !== null && x.name.includes(queryText.toLowerCase()));
+
         return combo_item_name.indexOf(searchText) > -1 
+    }
 }
 
 </script>

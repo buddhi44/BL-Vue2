@@ -1,20 +1,20 @@
 <script setup lang="ts">
 import {useRoute} from 'vue-router'
 import {onMounted,watch,ref,provide} from 'vue'
-//import type BLUIElement from '../../core/domain/BLUIElement'
 import { fetchWrapper } from '@/managers/helper/fetch_wrapper'
 import {TokenEndPoint} from '@/router/token_endpoint'
 import type ObjectFormRequest from '@/core/domain/ObjectFormRequest'
 import UIBuilder from '@/views/components/uikit/UIBuilder.vue'
 import type {IOrder} from '@/core/domain/Entities/IOrder'
 import {Order, OrderItem} from '@/core/domain/Entities/Order'
-import { date } from 'yup'
+import {BaseComponent} from '@/core/domain/interfaces/IBLUIOperationHelper'
+
 
 const route = useRoute();
 
 const controller = route.params.UrlController;
 const action = route.params.UrlAction
-const objectKey = route.query.ElementKey
+const objectKey = route.query.ElementKey 
 
 const uiContent = ref<any>(undefined)
 const formElement = ref<any>(undefined)
@@ -23,8 +23,11 @@ const controlVariables = ref<any>({
     ShiftPopUp:false
 })
 const formRef = ref<any>(null);
+var baseComponent:BaseComponent=new BaseComponent()
 
 onMounted(async ()=>{
+    baseComponent.mainFormDefinitions.UIObjectKey = Number(objectKey);
+    baseComponent.mainFormDefinitions.OwnerComponent = this;
     await LoadFormDefinition()
 })
 
