@@ -11,7 +11,8 @@ var gridData : any[] = ref<any[]>([])
 
 watchEffect(()=>{
     gridData.values = inject("GRID_DATA")
-})
+    console.log("hii "+gridData.values)
+},{deep:true})
 
 if(props.Parent != undefined && props.ComponentList != undefined){
     var headerList2 : any[] = []

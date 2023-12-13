@@ -10,7 +10,7 @@ const myCaption = ref<string>("")
 const actionTriggers2 : any[] | undefined = inject("actionTriggers");
 
 function LaunchOnClickAction(){
-    console.log(props.UiElement.onClickAction)
+    //console.log(props.UiElement.onClickAction)
    if(actionTriggers2 != undefined){
         var functions = actionTriggers2.filter((item:any)=>{
             return item.name == props.UiElement.onClickAction

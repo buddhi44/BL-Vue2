@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import {useRoute} from 'vue-router'
+//const useRoute = () => import('vue-router').then(module => module.useRoute)
 import {onMounted,watch,ref,provide} from 'vue'
 //import type BLUIElement from '../../core/domain/BLUIElement'
 import { fetchWrapper } from '@/managers/helper/fetch_wrapper'
@@ -9,6 +10,7 @@ import UIBuilder from '@/views/components/uikit/UIBuilder.vue'
 import type {IOrder} from '@/core/domain/Entities/IOrder'
 import {Order, OrderItem} from '@/core/domain/Entities/Order'
 import { date } from 'yup'
+import { Module } from 'module';
 
 const route = useRoute();
 
@@ -33,6 +35,7 @@ const LoadFormDefinition = async () => {
         MenuKey:Number(objectKey)
     }
     var content = await fetchWrapper.post(TokenEndPoint.FormDefinitionUrl,request)
+    console.log(content)
     var contList = content.children;
     var element = null;
     contList.forEach((item:any,index:number)=>{
