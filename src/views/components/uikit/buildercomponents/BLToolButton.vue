@@ -91,13 +91,13 @@ if(props.UiElement.iconCss != null || props.UiElement.iconCss != undefined || pr
             myicon.value = "mdi-qrcode-scan"
             break;
         default:
-            console.log(props.UiElement.iconCss)
+            //console.log(props.UiElement.iconCss)
             break;
     }
     myCaption.value = props.UiElement.elementCaption;
     props.UiElement.elementCaption = undefined
 }else{
-    console.log(props.UiElement)
+    //console.log(props.UiElement)
 }
 
     

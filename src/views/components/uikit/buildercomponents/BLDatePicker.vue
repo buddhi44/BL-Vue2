@@ -16,7 +16,7 @@ onMounted(()=>{
 
     css_class.value=props.UiElement.isVisible?props.UiElement?.cssClass:"d-none"
     css_class.value=css_class.value+ (props.UiElement.isMust?" required":"")
-    console.log("css",css_class.value)
+    //console.log("css",css_class.value)
 })
 
 // console.log(props.UiElement)

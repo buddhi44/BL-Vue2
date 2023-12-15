@@ -9,7 +9,7 @@ var css_class=ref<any>();
 onMounted(()=>{
     css_class.value=props.UiElement.isVisible?props.UiElement?.cssClass:"d-none"
     css_class.value=css_class.value+ (props.UiElement.isMust?" required":"")
-    console.log("css",css_class.value)
+    //console.log("css",css_class.value)
 })
 
 basecontent[props.UiElement.defaultAccessPath] = props.UiElement.defaultValue;

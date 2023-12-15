@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script  lang="ts">
 import {ref,onMounted} from 'vue'
 import SectionFormatGroup from '@/views/components/uikit/buildercomponents/SectionFormatGroup.vue'
 import PopupWindow from '@/views/components/uikit/buildercomponents/PopupWindow.vue'
@@ -10,36 +10,47 @@ import BLDatePicker from '@/views/components/uikit/buildercomponents/BLDatePicke
 import BLCombo from '@/views/components/uikit/buildercomponents/BLCombo.vue'
 import BLSwitch from '@/views/components/uikit/buildercomponents/BLSwitch.vue'
 import GridCover from '@/views/components/uikit/buildercomponents/Grid/GridCover.vue'
-const props = defineProps(["ContentList","Parent","isGrid"])
+import CodeBaseCombo from '@/views/components/uikit/buildercomponents/combo/codeBaseCombo.vue'
+import AddressCombo from '@/views/components/uikit/buildercomponents/combo/addressCombo.vue'
+import ItemCombo from '@/views/components/uikit/buildercomponents/combo/itemCombo.vue'
+import UnitCombo from '@/views/components/uikit/buildercomponents/combo/unitCombo.vue'
+import { Component, Vue, toNative,Prop,Inject,Watch } from 'vue-facing-decorator'
+
+@Component
+class UIBuilder extends Vue {
+
+    @Prop()
+    public ContentList?:any
+    @Prop()
+    public isGrid?:any
+    @Prop()
+    public Parent?:any
+
+    myComponents = ref<any>(undefined);
+    formObject= ref<any>({});
+
+    mounted(){      
+        this.myComponents =this.filterComponentsByParent(this.ContentList, this.Parent)   
+    }
+
+    filterComponentsByParent=(components: any, parentKey: number ): any =>
+    {
+
+        return components.filter((item:any)=>{
+            return item.parentKey == parentKey
+        }).map((item:any) => {
+            const filteredChildren = this.filterComponentsByParent(components, item.elementKey);
+            if (filteredChildren.length > 0) 
+            {
+                item.children = filteredChildren;
+            }
+            return item;
+        });
+    }
+} 
 
 
-const myComponents = ref<any>(undefined);
-let formObject= ref<any>({});
-onMounted(()=>{
-    // myComponents.value = props.ContentList.filter((item:any)=>{
-    //     return item.parentKey == props.Parent
-    // })
-
-    myComponents.value =filterComponentsByParent(props.ContentList, props.Parent)
-    console.log("myComponents",myComponents.value )
-})
-
-function filterComponentsByParent(components: any, parentKey: number ): any {
-
-    return components.filter((item:any)=>{
-        return item.parentKey == parentKey
-    }).map((item:any) => {
-        const filteredChildren = filterComponentsByParent(components, item.elementKey);
-        if (filteredChildren.length > 0) 
-        {
-            item.children = filteredChildren;
-        }
-        return item;
-    });
-}
-
-
-//http://localhost:5173/form/transaction/createtransaction?ObjectKey=176046
+export default toNative(UIBuilder)
 </script>
 
 
@@ -54,7 +65,11 @@ function filterComponentsByParent(components: any, parentKey: number ): any {
             <ButtonGroup   v-if="com.elementType == 'ButtonGroup'"  :Parent="com.elementKey" :UiElement="com" />
             <BLButton  :UiElement="com" v-if="com.elementType == 'Button'" />
             <BLDatePicker :isGrid="isGrid" :UiElement="com" v-if="com.elementType == 'DatePicker'" />
-            <BLCombo :is-grid="isGrid" :UiElement="com" v-if="com.elementType == 'Cmb'" />
+            <!--<BLCombo :is-grid="isGrid" :UiElement="com" v-if="com.elementType == 'Cmb'" />-->
+            <CodeBaseCombo :is-grid="isGrid" :UiElement="com" v-if="com.elementType == 'Cmb' && com.elementID == 'CodeBase'"/>
+            <AddressCombo :is-grid="isGrid" :UiElement="com" v-if="com.elementType == 'Cmb' && com.elementID == 'Address'"/>
+            <UnitCombo :is-grid="isGrid" :UiElement="com" v-if="com.elementType == 'Cmb' && com.elementID == 'Unit'"/>
+            <ItemCombo :is-grid="isGrid" :UiElement="com" v-if="com.elementType == 'Cmb' && com.elementID == 'Item'"/>
             <BLSwitch :UiElement="com" v-if="com.elementType == 'Switch' || com.elementType == 'MultiRadio'" />
             <GridCover v-if="com.elementType == 'Grid'" :Parent="com.elementKey" :ComponentList="ContentList" />
             <Headings :UiElement="com" v-if="com.elementType == 'Heading6' || com.elementType == 'Heading5' || com.elementType == 'Heading4' || com.elementType == 'Heading3' || com.elementType == 'Heading2' || com.elementType == 'Heading1'" />

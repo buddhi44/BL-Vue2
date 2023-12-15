@@ -3,7 +3,7 @@ import BLToolButton from './BLToolButton.vue'
 import BLButton from './Button.vue'
 const props = defineProps(["Parent","UiElement"])
 
-console.log("button",props.UiElement)
+//console.log("button",props.UiElement)
 </script>
 
 <template>

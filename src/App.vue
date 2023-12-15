@@ -7,16 +7,21 @@
 </template>
 
 
-<script setup lang="ts">
+<script lang="ts">
 import { ref, reactive, onMounted } from 'vue';
 import { RouterLink, RouterView } from 'vue-router'
 import { useAuthStore } from '@/stores/authstore';
 import { StorageConstant } from '@/core/application/constant/storag_econstants';
 import { boolean } from 'yup';
+import { Component, Vue, toNative } from 'vue-facing-decorator'
 
-const authStore = useAuthStore();
+@Component
+class App extends Vue {
+  authStore = useAuthStore();
 
-const _isCompanyAuthAccess =ref<boolean>(JSON.parse(localStorage.getItem(StorageConstant.AuthToken) || 'null') as boolean )
+  _isCompanyAuthAccess =ref<boolean>(JSON.parse(localStorage.getItem(StorageConstant.AuthToken) || 'null') as boolean )
+}
+
 </script>
 
 <style scoped>

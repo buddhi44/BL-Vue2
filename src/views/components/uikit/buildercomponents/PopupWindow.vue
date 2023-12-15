@@ -11,7 +11,7 @@ var IElement = ref<any>(res);
 
 var con : any = inject("controls")
 
-console.log(res)
+//console.log(res)
 </script>
 
 <template>

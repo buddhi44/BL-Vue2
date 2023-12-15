@@ -5,7 +5,7 @@ var basecontent : any = inject("baseObject");
 
 basecontent[props.UiElement.defaultAccessPath] = props.UiElement.defaultValue ? props.UiElement.defaultValue : false;
 
-console.log(props.UiElement)
+//console.log(props.UiElement)
 </script>
 
 <template>

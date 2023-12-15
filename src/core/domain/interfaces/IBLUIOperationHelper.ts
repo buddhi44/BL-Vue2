@@ -1,6 +1,6 @@
 //import { ValidationRule } from "../../entity/contracts/IHeaderCalculation";
 import type { BLUIElement }  from '../BLUIElement'
-
+import { Component, Vue, toNative,Prop,Inject,Watch } from 'vue-facing-decorator'
 export class BLUIBuilder {
 
     OwnerComponent!: any;
@@ -35,6 +35,10 @@ export class BLUIBuilder {
 
 
 
+
+}
+
+export interface componentHelper {
 
 }
 
