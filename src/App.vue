@@ -15,7 +15,7 @@ import { StorageConstant } from '@/core/application/constant/storag_econstants';
 import { boolean } from 'yup';
 import { Component, Vue, toNative } from 'vue-facing-decorator'
 
-@Component
+
 class App extends Vue {
   authStore = useAuthStore();
 

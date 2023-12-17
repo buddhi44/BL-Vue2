@@ -1,57 +1,76 @@
 <script lang="ts">
-import {ref,inject,watchEffect,onMounted} from 'vue'
+import {ref,inject,watchEffect,onMounted,type Ref} from 'vue'
 import BLContainer from '../../BLContainer.vue';
 import { fetchWrapper } from '@/managers/helper/fetch_wrapper'
 import base_end_point from '@/router/base_end_point';
 import Vuetify from 'vuetify';
 import { CodeBaseResponse } from '@/core/domain/Entities/Base/codeBaseReponse';
 import { Component, Vue, toNative,Prop,Inject,Watch } from 'vue-facing-decorator'
-import type { IUIDefinition } from '@/core/domain/interfaces/IBLUIOperationHelper';
+import type { BLUIBuilder, IUIDefinition } from '@/core/domain/interfaces/IBLUIOperationHelper';
 import type { BLUIElement } from '@/core/domain/BLUIElement';
 import { ComboRequest } from '@/core/domain/Entities/Base/comboRequest';
+import { ThreedCubeSphereIcon } from 'vue-tabler-icons';
+import SalesOrder from '@/views/pages/salesManagement/SalesOrder.vue';
+import type { BLOrder } from '@/core/domain/Entities/BLOrder';
 
 @Component
 class codeBaseCombo extends Vue implements IUIDefinition{
 
     uiObject!: BLUIElement;
     @Prop()
-    public UiElement?:any
+    public UiElement!:any
     @Prop()
-    public isGrid?:any
-    codeBaseResponses:CodeBaseResponse[]=[]
-    selectedDataItem = new CodeBaseResponse()
-    css_class:string=''
-    isEditable:boolean=true
-    comboRequest:ComboRequest=new ComboRequest()
-    @Inject
-    public baseObject!: any
+    public isGrid!:any
+    @Prop()
+    public Def!:BLUIBuilder
 
-    @Inject
-    public actionTriggers!:  any[] | undefined
+    codeBaseResponses=ref<CodeBaseResponse[]>([])
+    selectedDataItem = ref<CodeBaseResponse>(new CodeBaseResponse())
+    css_class=ref<string>('')
+    isEditable= ref<boolean>(true)
+    comboRequest=ref<ComboRequest>(new ComboRequest())
+    css !:string
+
+
+    @Inject({from:'actionTriggers'}) 
+    readonly actionTriggers:  any[] | undefined
 
     async mounted(){
-        
+            this.selectedDataItem.value=new CodeBaseResponse()
+            this.codeBaseResponses.value=[]
+            this.css = this.UiElement.isVisible?this.UiElement.cssClass:"d-none"
+            this.css=this.css+ (this.UiElement.isMust?" required":"")
+            this.css_class=this.css
             
-            this.selectedDataItem=new CodeBaseResponse()
-            this.css_class=this.UiElement.isVisible?this.UiElement?.cssClass:"d-none"
-            this.css_class=this.css_class+ (this.UiElement.isMust?" required":"")
-            console.log("css",this.css_class)
             this.comboRequest.requestingElementKey=this.UiElement.elementKey
             await this.fetchComboData();
-            console.log("codebase responsesddddd",this.codeBaseResponses)
-        
-        
+           // console.log("codes",this.codeBaseResponses)
+            if((this.codeBaseResponses!=undefined || this.codeBaseResponses!=null) && !this.UiElement.isServerFiltering){
+                this.codeBaseResponses.forEach((i:any) => {
+                
+                if (i!=null && i!=undefined && i.isDefault) {
+                    this.selectedDataItem = i;
+                    this.OnValueChanged(i);
+    
+                }
+            
+
+                })
+            }
+            
+          
     }
 
     OnValueChanged=(e:CodeBaseResponse)=>{
-    var xx = this.codeBaseResponses.find((item)=>{
-        return item == e
-    })
-    this.LaunchOnClickAction(xx as CodeBaseResponse)
- }
+        this.Def.DataObject[this.UiElement.defaultAccessPath] = this.selectedDataItem;
+        
+    }
+ 
     LaunchOnClickAction=(data : CodeBaseResponse)=>{
+        console.log(this.actionTriggers)
         if(this.actionTriggers != undefined)
         {
+           
             var functions = this.actionTriggers.filter((item:any)=>{
                 return item.name == this.UiElement.onClickAction
             })
@@ -61,9 +80,10 @@ class codeBaseCombo extends Vue implements IUIDefinition{
 
 
 fetchComboData=async(searchText='')=> {
-    this.comboRequest.searchQuery=searchText
-    var content  = await fetchWrapper.post(`${base_end_point()}${this.UiElement.urlController}/${this.UiElement.urlAction}`,this.comboRequest);
-    this.codeBaseResponses=content as CodeBaseResponse[]
+    this.comboRequest.value.searchQuery=searchText
+    //var content  = await fetchWrapper.post(`${base_end_point()}${this.UiElement.urlController}/${this.UiElement.urlAction}`,this.comboRequest.value);
+    var content  = await fetchWrapper.post(`${base_end_point()}CodeBase/readCodes`,this.comboRequest.value);
+    this.codeBaseResponses.value=content as CodeBaseResponse[]
     
 }
 
@@ -88,7 +108,7 @@ export default toNative(codeBaseCombo)
                         @update:model-value="OnValueChanged" 
                         :items="codeBaseResponses" 
                         item-title="codeName"
-                        :label="UiElement.elementCaption" 
+                        :label="`${UiElement.elementCaption} ${UiElement.elementKey}`" 
                         variant="outlined"
                         :disabled="!isEditable"
                         :class="css_class"

@@ -1,11 +1,12 @@
 //import { ValidationRule } from "../../entity/contracts/IHeaderCalculation";
+import type { Ref } from 'vue';
 import type { BLUIElement }  from '../BLUIElement'
-import { Component, Vue, toNative,Prop,Inject,Watch } from 'vue-facing-decorator'
+import { Vue } from 'vue-facing-decorator'
 export class BLUIBuilder {
 
-    OwnerComponent!: any;
-    DataObject!: any;
-    UIObjectKey: number = 1;
+    OwnerComponent!: Ref<any>;
+    DataObject!: Ref<any>;
+    UIObjectKey!: Ref<number>;
     ObjectRefs: Array<IUIDefinition> = new Array<IUIDefinition>();
     //ValidationRules: Array<ValidationRule> = [];
     errorMessage!: ErrorMessage 
@@ -52,16 +53,17 @@ export interface IUIDefinition {
 
 }
 
-export class BaseComponent {
+export class BaseComponent extends Vue {
     mainFormDefinitions!: BLUIBuilder;
     UIObjectKey: number = 1;
     errorMessage: ErrorMessage = new ErrorMessage();
   
-    constructor() {
-        this.mainFormDefinitions = new BLUIBuilder();
-        this.mainFormDefinitions.errorMessage=this.errorMessage;
+    // constructor() {
+    //     super();
+    //     this.mainFormDefinitions = new BLUIBuilder();
+    //     this.mainFormDefinitions.errorMessage=this.errorMessage;
        
-    }
+    // }
 }
 
 export class ErrorMessage {

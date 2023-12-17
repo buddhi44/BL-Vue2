@@ -12,28 +12,28 @@ export interface IOrderItemCalculation {
 
 
 export interface ITaxableLine {
-    itemTaxType1: number;
-    itemTaxType2: number;
-    itemTaxType3: number;
-    itemTaxType4: number;
-    itemTaxType5: number;
-    itemTaxType1Per: number;
-    itemTaxType2Per: number;
-    itemTaxType3Per: number;
-    itemTaxType4Per: number;
-    itemTaxType5Per: number;
-    isRateInclusiveTT1: boolean;
-    isRateInclusiveTT2: boolean;
-    isRateInclusiveTT3: boolean;
-    isRateInclusiveTT4: boolean;
-    isRateInclusiveTT5: boolean;
-    discountPercentage: number;
-    discountAmount: number;
-    discount2Percentage: number;
-    discount2Amount: number;
-    lineNetTotal: number;
-    lineSubTotal: number;
-    headerDiscountAmount: number;
+    ItemTaxType1: number;
+    ItemTaxType2: number;
+    ItemTaxType3: number;
+    ItemTaxType4: number;
+    ItemTaxType5: number;
+    ItemTaxType1Per: number;
+    ItemTaxType2Per: number;
+    ItemTaxType3Per: number;
+    ItemTaxType4Per: number;
+    ItemTaxType5Per: number;
+    IsRateInclusiveTT1: boolean;
+    IsRateInclusiveTT2: boolean;
+    IsRateInclusiveTT3: boolean;
+    IsRateInclusiveTT4: boolean;
+    IsRateInclusiveTT5: boolean;
+    DiscountPercentage: number;
+    DiscountAmount: number;
+    Discount2Percentage: number;
+    Discount2Amount: number;
+    LineNetTotal: number;
+    LineSubTotal: number;
+    HeaderDiscountAmount: number;
     calclulatePreDiscountLineTotal(): number;
     calclulatePostDiscountLineTotal(): number;
     calculateDiscount(): number;
@@ -71,7 +71,7 @@ export class OrderValidation implements IOrderValidation {
         if (this.getValidationRuleByName("OrderAddress")) {
 
             let val = this.getValidationRuleByName("OrderAddress");
-            if (val?.IsValueMust && this.orderToValidate.orderCustomer.addressKey < 10) {
+            if (val?.IsValueMust && this.orderToValidate.OrderCustomer.addressKey < 10) {
                 this.errorMessages.errorMessages.push("Please select a valid customer.");
             }
         }
@@ -80,7 +80,7 @@ export class OrderValidation implements IOrderValidation {
         if (this.getValidationRuleByName("OrderLocation")) {
 
             let val = this.getValidationRuleByName("OrderLocation");
-            if (val?.IsValueMust && this.orderToValidate.orderLocation.codeKey < 10) {
+            if (val?.IsValueMust && this.orderToValidate.OrderLocation.codeKey < 10) {
                 this.errorMessages.errorMessages.push("Please select a valid location.");
             }
         }
@@ -88,7 +88,7 @@ export class OrderValidation implements IOrderValidation {
         if (this.getValidationRuleByName("PayementMethod")) {
 
             let val = this.getValidationRuleByName("PayementMethod");
-            if (val?.IsValueMust && this.orderToValidate.orderLocation.codeKey < 10) {
+            if (val?.IsValueMust && this.orderToValidate.OrderLocation.codeKey < 10) {
                 this.errorMessages.errorMessages.push("Please select a valid payement method.");
             }
         }

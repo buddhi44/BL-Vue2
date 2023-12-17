@@ -9,132 +9,132 @@ import type { ITaxableLine } from "./contracts/IHeaderCalculation";
 
 
 export class OrderItem implements ITaxableLine {
-
-    addressKey: number = 1;
-    analysisType1: CodeBaseResponse = new CodeBaseResponse();
-    analysisType2: CodeBaseResponse = new CodeBaseResponse();
-    analysisType3: CodeBaseResponse = new CodeBaseResponse();
-    analysisType4: CodeBaseResponse = new CodeBaseResponse();
-    availableQuantity: number = 0;
-    availableStock: number = 0;
+   
+    AddressKey: number = 1;
+    AnalysisType1: CodeBaseResponse = new CodeBaseResponse();
+    AnalysisType2: CodeBaseResponse = new CodeBaseResponse();
+    AnalysisType3: CodeBaseResponse = new CodeBaseResponse();
+    AnalysisType4: CodeBaseResponse = new CodeBaseResponse();
+    AvailableQuantity: number = 0;
+    AvailableStock: number = 0;
     baringCompany: AccountResponse = new AccountResponse();
     baringCustomer: AccountResponse = new AccountResponse();
     baringPrinciple: AccountResponse = new AccountResponse();
-    bussinessUnit: CodeBaseResponse = new CodeBaseResponse();
+    BussinessUnit: CodeBaseResponse = new CodeBaseResponse();
     companyAmount: number = 0;
     companyPrecentage: number = 0;
     customerAmount: number = 0;
     customerPrecentage: number = 0;
-    description: string | null = '';
-    discount2Amount: number = 0;
-    discount2Percentage: number = 0;
-    discountAmount: number = 0;
-    discountPercentage: number = 0;
-    fromOrderDetailKey: number = 1;
-    fromOrderDetKy: number = 1;
-    headerDiscountAmount: number = 0;
+    Description: string | null = '';
+    Discount2Amount: number = 0;
+    Discount2Percentage: number = 0;
+    DiscountAmount: number = 0;
+    DiscountPercentage: number = 0;
+    FromOrderDetailKey: number = 1;
+    FromOrderDetKy: number = 1;
+    HeaderDiscountAmount: number = 0;
     insurenceAmount: number = 0;
     insurencePrecentage: number = 0;
-    isActive: number = 1;
-    isApproved: number = 1;
-    isDirty: boolean = false;
-    isItemReturned: boolean = false;
-    isPendingForIssue: boolean = false;
-    isRateInclusiveTT1: boolean = false;
-    isRateInclusiveTT2: boolean = false;
-    isRateInclusiveTT3: boolean = false;
-    isRateInclusiveTT4: boolean = false;
-    isRateInclusiveTT5: boolean = false;
-    isSupplimentary: number = 0;
-    isTransfer: number = 0;
-    isTransferConfirmed: number = 0;
-    itemTaxType1: number = 0;
-    itemTaxType1Per: number = 0;
-    itemTaxType2: number = 0;
-    itemTaxType2Per: number = 0;
-    itemTaxType3: number = 0;
-    itemTaxType3Per: number = 0;
-    itemTaxType4: number = 0;
-    itemTaxType4Per: number = 0;
-    itemTaxType5: number = 0;
-    itemTaxType5Per: number = 0;
-    itemTaxType5Per2: number = 0;
-    lineNetTotal: number = 0;
+    IsActive: number = 1;
+    IsApproved: number = 1;
+    IsDirty: boolean = false;
+    IsItemReturned: boolean = false;
+    IsPendingForIssue: boolean = false;
+    IsRateInclusiveTT1: boolean = false;
+    IsRateInclusiveTT2: boolean = false;
+    IsRateInclusiveTT3: boolean = false;
+    IsRateInclusiveTT4: boolean = false;
+    IsRateInclusiveTT5: boolean = false;
+    IsSupplimentary: number = 0;
+    IsTransfer: number = 0;
+    IsTransferConfirmed: number = 0;
+    ItemTaxType1: number = 0;
+    ItemTaxType1Per: number = 0;
+    ItemTaxType2: number = 0;
+    ItemTaxType2Per: number = 0;
+    ItemTaxType3: number = 0;
+    ItemTaxType3Per: number = 0;
+    ItemTaxType4: number = 0;
+    ItemTaxType4Per: number = 0;
+    ItemTaxType5: number = 0;
+    ItemTaxType5Per: number = 0;
+    ItemTaxType5Per2: number = 0;
+    LineNetTotal: number = 0;
     lineNumber: number = 0;
-    lineSubTotal: number = 0;
-    lineTotal: number = 0;
-    lineTotalWithoutDiscount: number = 0;
-    objectKey: number = 1;
-    orderDetailKey: number = 1;
-    orderDetailsAccountKey1: number = 1;
-    orderDetailsAccountKey2: number = 1;
-    orderDetailsAccountKey3: number = 1;
-    transactionItem: ItemResponse = new ItemResponse();
-    orderKey: number = 1;
-    orderLineLocation: CodeBaseResponse = new CodeBaseResponse();
-    orderLineLocation2: CodeBaseResponse = new CodeBaseResponse();
-    orderLineProject: ProjectResponse = new ProjectResponse();
-    orderType: CodeBaseResponse = new CodeBaseResponse();
-    ownerAmount: number = 0;
+    LineSubTotal: number = 0;
+    LineTotal: number = 0;
+    LineTotalWithoutDiscount: number = 0;
+    ObjectKey: number = 1;
+    OrderDetailKey: number = 1;
+    OverridrderDetailsAccountKey1: number = 1;
+    OrderDetailsAccountKey2: number = 1;
+    OrderDetailsAccountKey3: number = 1;
+    TransactionItem: ItemResponse = new ItemResponse();
+    OrderKey: number = 1;
+    OrderLineLocation: CodeBaseResponse = new CodeBaseResponse();
+    OrderLineLocation2: CodeBaseResponse = new CodeBaseResponse();
+    OrderLineProject: ProjectResponse = new ProjectResponse();
+    OrderType: CodeBaseResponse = new CodeBaseResponse();
+    OwnerAmount: number = 0;
     ownerPrecentage: number = 0;
     principleAmount: number = 0;
     principlePrecentage: number = 0;
     processDetailsKey: number = 1;
-    rate: number = 0;
-    referanceOrderDetKey: number = 1;
-    remark: string = '';
-    requestedQuantity: number = 0;
-    requiredDate: Date = new Date();
-    resourceAddress: AddressResponse = new AddressResponse();
-    supplier: AccountResponse = new AccountResponse();
-    supplimentaryNumber: string = '';
-    supplimentaryOrderKey: number = 1;
-    transactionDiscountAmount: number = 0;
-    transactionQuantity: number = 0;
-    transactionRate: number = 0;
-    transactionUnit: UnitResponse = new UnitResponse();
-    transferQuantity: number = 1;
-    unit: UnitResponse = new UnitResponse();
+    Rate: number = 0;
+    ReferanceOrderDetKey: number = 1;
+    Remark: string = '';
+    RequestedQuantity: number = 0;
+    RequiredDate: Date = new Date();
+    ResourceAddress: AddressResponse = new AddressResponse();
+    Supplier: AccountResponse = new AccountResponse();
+    SupplimentaryNumber: string = '';
+    SupplimentaryOrderKey: number = 1;
+    TransactionDiscountAmount: number = 0;
+    TransactionQuantity: number = 0;
+    TransactionRate: number = 0;
+    TransactionUnit: UnitResponse = new UnitResponse();
+    TransferQuantity: number = 1;
+    Unit: UnitResponse = new UnitResponse();
 
     calclulatePreDiscountLineTotal(): number {
-        this.lineTotal = this.transactionQuantity * this.transactionRate;
-        return this.lineTotal;
+        this.LineTotal = this.TransactionQuantity * this.TransactionRate;
+        return this.LineTotal;
     }
     calclulatePostDiscountLineTotal(): number {
-        this.lineSubTotal = this.calclulatePreDiscountLineTotal() - this.calculateDiscount();
-        return this.lineSubTotal;
+        this.LineSubTotal = this.calclulatePreDiscountLineTotal() - this.calculateDiscount();
+        return this.LineSubTotal;
     }
     calclulateItemTaxType1Total(): number {
-        this.itemTaxType1 = this.calclulatePostDiscountLineTotal() * this.itemTaxType1Per;
-        return this.itemTaxType1;
+        this.ItemTaxType1 = this.calclulatePostDiscountLineTotal() * this.ItemTaxType1Per;
+        return this.ItemTaxType1;
     }
     calclulateItemTaxType2Total(): number {
-        this.itemTaxType2 = this.calclulatePostDiscountLineTotal() * this.itemTaxType2Per;
-        return this.itemTaxType2;
+        this.ItemTaxType2 = this.calclulatePostDiscountLineTotal() * this.ItemTaxType2Per;
+        return this.ItemTaxType2;
     }
     calclulateItemTaxType3Total(): number {
-        this.itemTaxType3 = this.calclulatePostDiscountLineTotal() * this.itemTaxType3Per;
-        return this.itemTaxType3;
+        this.ItemTaxType3 = this.calclulatePostDiscountLineTotal() * this.ItemTaxType3Per;
+        return this.ItemTaxType3;
     }
     calclulateItemTaxType4Total(): number {
-        this.itemTaxType4 = this.calclulatePostDiscountLineTotal() * this.itemTaxType4Per;
-        return this.itemTaxType4;
+        this.ItemTaxType4 = this.calclulatePostDiscountLineTotal() * this.ItemTaxType4Per;
+        return this.ItemTaxType4;
     }
     calclulateItemTaxType5Total(): number {
-        this.itemTaxType5 = this.calclulatePostDiscountLineTotal() * this.itemTaxType5Per;
-        return this.itemTaxType5;
+        this.ItemTaxType5 = this.calclulatePostDiscountLineTotal() * this.ItemTaxType5Per;
+        return this.ItemTaxType5;
     }
     calculateTotalTax(): number {
         return 0;
     }
     calculatePostTaxLineTotal(): number {
-        this.lineNetTotal = this.calclulatePostDiscountLineTotal() + this.calclulateItemTaxType1Total();
-        return this.lineNetTotal;
+        this.LineNetTotal = this.calclulatePostDiscountLineTotal() + this.calclulateItemTaxType1Total();
+        return this.LineNetTotal;
 
     }
     calculateDiscount(): number {
-        this.transactionDiscountAmount = this.calclulatePreDiscountLineTotal() * this.discountPercentage / 100;
-        return this.transactionDiscountAmount;
+        this.TransactionDiscountAmount = this.calclulatePreDiscountLineTotal() * this.DiscountPercentage / 100;
+        return this.TransactionDiscountAmount;
     }
 
     calculateBalances() {

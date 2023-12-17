@@ -6,38 +6,38 @@ import { OrderItem } from "./OrderItem";
 
 
 export class BLOrder {
-    orderKey: number = 1;;
-    orderNumber: string | null = '';
+    OrderKey: number = 1;
+    OrderNumber: string | null = '';
     isHold: boolean = false;
-    orderDocumentNumber: string | null = '';
+    OrderDocumentNumber: string | null = '';
 
-    orderDate: Date = new Date();
+    OrderDate: Date = new Date();
     orderFinishDate: Date = new Date();
-    deliveryDate: Date = new Date();
-    orderLocation: CodeBaseResponse = new CodeBaseResponse();
-    orderLocation2: CodeBaseResponse = new CodeBaseResponse();
-    orderPaymentTerm: CodeBaseResponse = new CodeBaseResponse();
-    orderCustomer: AddressResponse = new AddressResponse();
-    orderRepAddress: AddressResponse = new AddressResponse();
-    orderAccount: AccountResponse = new AccountResponse();
-    orderType: CodeBaseResponse = new CodeBaseResponse();
-    orderItems: OrderItem[] = [];
-    formObjectKey: number = 1;
-    objectKey: number = 1;
-    headerLevelDisountPrecentage: number = 0;
-    bussinessUnit: CodeBaseResponse = new CodeBaseResponse();
-    fromOrderKey: number = 1;
+    DeliveryDate: Date = new Date();
+    OrderLocation: CodeBaseResponse = new CodeBaseResponse();
+    OrderLocation2: CodeBaseResponse = new CodeBaseResponse();
+    OrderPaymentTerm: CodeBaseResponse = new CodeBaseResponse();
+    OrderCustomer: AddressResponse = new AddressResponse();
+    OrderRepAddress: AddressResponse = new AddressResponse();
+    OrderAccount: AccountResponse = new AccountResponse();
+    OrderType: CodeBaseResponse = new CodeBaseResponse();
+    OrderItems: OrderItem[] = [];
+    FormObjectKey: number = 1;
+    ObjectKey: number = 1;
+    HeaderLevelDisountPrecentage: number = 0;
+    BussinessUnit: CodeBaseResponse = new CodeBaseResponse();
+    FromOrderKey: number = 1;
     isFromQuotation: boolean = false;
-    description: string | null = '';
-    orderApproveState: CodeBaseResponse = new CodeBaseResponse();
+    Description: string | null = '';
+    OrderApproveState: CodeBaseResponse = new CodeBaseResponse();
     orderPrefix: CodeBaseResponse = new CodeBaseResponse();
-    orderCategory1: CodeBaseResponse = new CodeBaseResponse();
-    orderCategory2: CodeBaseResponse = new CodeBaseResponse();
-    orderCategory3: CodeBaseResponse = new CodeBaseResponse();
-    orderStatus: CodeBaseResponse = new CodeBaseResponse();
-    orderControlCondition: CodeBaseResponse = new CodeBaseResponse();
-    orderProject: ProjectResponse = new ProjectResponse();
-    code1Key: number = 1;
+    OrderCategory1: CodeBaseResponse = new CodeBaseResponse();
+    OrderCategory2: CodeBaseResponse = new CodeBaseResponse();
+    OrderCategory3: CodeBaseResponse = new CodeBaseResponse();
+    OrderStatus: CodeBaseResponse = new CodeBaseResponse();
+    OrderControlCondition: CodeBaseResponse = new CodeBaseResponse();
+    OrderProject: ProjectResponse = new ProjectResponse();
+    Code1Key: number = 1;
     meterReading: number = 0;
     insurance: AccountResponse = new AccountResponse();
     isIRNEstimateOrder: boolean = false;
@@ -58,47 +58,47 @@ export class BLOrder {
     insurenceAmount: number = 0;
     ownerPrecentage: number = 0;
     ownerAmount: number = 0;
-    addressCategory1: CodeBaseResponse = new CodeBaseResponse();
-    addressCategory2: CodeBaseResponse = new CodeBaseResponse()
-    addressCategory3: CodeBaseResponse = new CodeBaseResponse();
-    orderYourReference: string | null = '';
-    prefixedOrderNumber: string = '';
-    address2: AddressResponse = new AddressResponse();
-    isActive: number = 1;
-    isApprove: number = 1;
+    AddressCategory1: CodeBaseResponse = new CodeBaseResponse();
+    AddressCategory2: CodeBaseResponse = new CodeBaseResponse()
+    AddressCategory3: CodeBaseResponse = new CodeBaseResponse();
+    OrderYourReference: string | null = '';
+    PrefixedOrderNumber: string = '';
+    Address2: AddressResponse = new AddressResponse();
+    IsActive: number = 1;
+    IsApprove: number = 1;
 
-    headerDiscountAmount: number = 0;
-    discountPercentage: number = 0;
-    discountAmount: number = 0;
+    HeaderDiscountAmount: number = 0;
+    DiscountPercentage: number = 0;
+    DiscountAmount: number = 0;
     shift: CodeBaseResponse = new CodeBaseResponse();
     shiftDate: Date = new Date();;
     workStationKy: number = 1;
-    amount: number = 0;
-    nextLineNumber: number = 1;
-    currentItem: OrderItem = new OrderItem();
-
-    transactionDiscountAmount: number = 0;
-    transactionAmount: number = 0;
+    Amount: number = 0;
+    NextLineNumber: number = 1;
+    SelectedOrderItem: OrderItem = new OrderItem();
+    EditingLineItem: OrderItem = new OrderItem();
+    TransactionDiscountAmount: number = 0;
+    TransactionAmount: number = 0;
 
     createNewOrderItem(): OrderItem {
 
         let newOrderItem = new OrderItem();
-        newOrderItem.orderLineLocation = this.orderLocation;
-        newOrderItem.orderLineProject = this.orderProject;
-        newOrderItem.addressKey = this.orderCustomer.addressKey;        
-        newOrderItem.lineNumber = this.nextLineNumber++;
-        this.currentItem = newOrderItem;
+        newOrderItem.OrderLineLocation = this.OrderLocation;
+        newOrderItem.OrderLineProject = this.OrderProject;
+        newOrderItem.AddressKey = this.OrderCustomer.addressKey;        
+        newOrderItem.lineNumber = this.NextLineNumber++;
+        this.SelectedOrderItem = newOrderItem;
         return newOrderItem;
 
     }
 
     calculateBalances() {
 
-        this.orderItems.forEach((item) => {
+        this.OrderItems.forEach((item) => {
             item.calculateBalances();
-            this.transactionDiscountAmount += item.transactionDiscountAmount;
-            this.amount += item.calclulatePostDiscountLineTotal();
-            this.transactionAmount = item.calclulatePreDiscountLineTotal();
+            this.TransactionDiscountAmount += item.TransactionDiscountAmount;
+            this.Amount += item.calclulatePostDiscountLineTotal();
+            this.TransactionAmount = item.calclulatePreDiscountLineTotal();
 
         });
     }
