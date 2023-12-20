@@ -1,6 +1,15 @@
-<script setup lang="ts">
-const props = defineProps(["isGrid","width"])
+<script lang="ts">
+import { Component, Vue, toNative,Prop,Inject,Watch, Ref } from 'vue-facing-decorator'
 
+class blContainer extends Vue {
+    @Prop()
+    public isGrid!:any
+    @Prop()
+    public width!:any
+}
+
+
+export default toNative(blContainer)
 </script>
 
 <template>

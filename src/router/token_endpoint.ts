@@ -7,4 +7,5 @@ export  class TokenEndPoint
     static CompanySelectedEndPoint: string = baseUrl()+"Authentication/UpdateSelectedCompany";
     static FormDefinitionUrl : string = baseUrl() + "Object/FetchObjects";
     static SideMenuURL : string = baseUrl() + "Object/FetchSideMenu";
+    static GetItemRateAndStockEndpoint = baseUrl() + "Item/getItemRateAndStockPOS";
 }

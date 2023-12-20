@@ -35,6 +35,7 @@ class addressCombo extends Vue implements IUIDefinition{
     readonly actionTriggers:  any[] | undefined
 
     async mounted(){
+            this.uiObject=this.UiElement;
             this.selectedDataItem.value=new AddressResponse()
             this.addressResponses.value=[]
             this.css = this.UiElement.isVisible?this.UiElement.cssClass:"d-none"
@@ -102,7 +103,7 @@ export default toNative(addressCombo)
 </script>
 
 <template>
-    <b-l-container :is-grid="isGrid" :width="UiElement.width" v-if="UiElement.isVisible" >
+
         <v-autocomplete v-model="selectedDataItem" 
                         @update:model-value="OnValueChanged" 
                         :items="addressResponses" 
@@ -115,7 +116,4 @@ export default toNative(addressCombo)
 
                         
                     </v-autocomplete>
-
-                    
-    </b-l-container>
 </template>

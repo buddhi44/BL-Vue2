@@ -2,6 +2,7 @@
 import type { Ref } from 'vue';
 import type { BLUIElement }  from '../BLUIElement'
 import { Vue } from 'vue-facing-decorator'
+
 export class BLUIBuilder {
 
     OwnerComponent!: Ref<any>;
@@ -25,9 +26,9 @@ export class BLUIBuilder {
         return false;
     }
 
-
     getComponentByInternalName(name: string): IUIDefinition | undefined {
         if (name) {
+            
             let component = this.ObjectRefs.find((item) => item.uiObject._internalElementName === name);
             return component;
         }
@@ -52,14 +53,13 @@ export interface IUIDefinition {
 
 
 }
-
-export class BaseComponent extends Vue {
-    mainFormDefinitions!: BLUIBuilder;
+export class BaseComponent extends Vue{
+    mainFormDefinitions!: BLUIBuilder
     UIObjectKey: number = 1;
     errorMessage: ErrorMessage = new ErrorMessage();
   
-    // constructor() {
-    //     super();
+    // constructor(optionBuilder: OptionBuilder, vueInstance: any) {
+    //     super(optionBuilder,vueInstance)
     //     this.mainFormDefinitions = new BLUIBuilder();
     //     this.mainFormDefinitions.errorMessage=this.errorMessage;
        

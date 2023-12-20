@@ -27,17 +27,13 @@ import { TokenEndPoint } from '@/router/token_endpoint'
         CodeBaseCombo,
         AddressCombo,
         AccountCombo,
-        ItemCombo,
-        UnitCombo,
         BLButton,
-        ButtonGroup,
         BLDatePicker,
         TextBox,
         NumericBox,
-        BLGrid
     }
 })
-class UIBuilder extends Vue {
+class UiRendere extends Vue {
   
     @Prop()
     public isGrid!:any
@@ -49,11 +45,7 @@ class UIBuilder extends Vue {
     ContentList=ref<any>()
     Title=ref<string>('')
 
-    arrButtonSection=ref<any>();
     arrHeaderSection1=ref<any>();
-    arrDetailSection1=ref<any>();
-    arrDetailGrid=ref<any>();
-    Def2=ref<BLUIBuilder>()
 
     async mounted(){   
         console.log(this.Def)
@@ -97,11 +89,9 @@ class UIBuilder extends Vue {
         let result: any = [];
 
         result = this.buildParentChild(items, parentKey);
-        this.arrButtonSection = result.filter((x:any) => x._internalElementName === 'Button_Section_1')[0].children[0];
-        this.arrHeaderSection1 = result.filter((x:any)=> x._internalElementName === 'Header_Section_1')[0];
-        this.arrDetailSection1 = result.filter((x:any)=> x._internalElementName === 'OrderItemPopUp')[0];
-        this.arrDetailGrid = result.filter((x:any)=> x._internalElementName === 'SalesOrderGrid')[0];      
-        
+       
+        this.arrHeaderSection1 = result.filter((x:any)=> x._internalElementName === '_SearchSalesOrder_')[0];
+       
         return result;
     }
     
@@ -123,7 +113,7 @@ class UIBuilder extends Vue {
 } 
 
 
-export default toNative(UIBuilder)
+export default toNative(UiRendere)
 </script>
 
     <template>
@@ -137,7 +127,7 @@ export default toNative(UIBuilder)
                             theme="dark">
                                 <v-toolbar-title class="text-h6" v-if="myComponents != null || myComponents != undefined"> {{ Title }} </v-toolbar-title>
                                 <v-spacer></v-spacer>
-                                <ButtonGroup v-if="arrButtonSection!=undefined || arrButtonSection!=null"   :UiElement="arrButtonSection"  :Def="Def"/>
+                                
                         </v-toolbar>
                         <v-card-text>
                             <v-row id="header-section" v-if="arrHeaderSection1!=undefined || arrHeaderSection1!=null">
@@ -148,28 +138,11 @@ export default toNative(UIBuilder)
                                         <BLDatePicker :isGrid="isGrid" :UiElement="com" v-if="com.elementType == 'DatePicker'" :Def="Def"/>
                                         <CodeBaseCombo :is-grid="isGrid" :UiElement="com" v-if="(com.elementType == 'Cmb' && com.elementID == 'CodeBase')" :Def="Def"/>
                                         <AccountCombo :is-grid="isGrid" :UiElement="com" v-if="com.elementType == 'Cmb' && com.elementID == 'Account'" :Def="Def"/>
-                                        <AddressCombo :is-grid="isGrid" :UiElement="com" v-if="com.elementType == 'Cmb' && com.elementID == 'Address'" :Def="Def"/>
+                                        <AddressCombo :is-grid="isGrid" :UiElement="com" v-if="com.elementType == 'Cmb' && com.elementID == 'Address'" :Def="Def"/>                            
+                                </v-col>
+                            </v-row>
 
                             
-                                </v-col>
-                            </v-row>
-
-                            <v-row id="detail-section" v-if="arrDetailSection1!=undefined || arrDetailSection1!=null">
-                                <v-col  v-for="com in arrDetailSection1.children"  :v-if="com.isVisible" cols=12 :md=com.width  :class="com.isVisible?'':'d-none'">
-                                        <NumericBox :isGrid="isGrid" :UiElement="com" v-if="com.elementType == 'NumericBox' || com.elementType == 'TelNumericBox'" :Def="Def" />
-                                        <TextBox :isGrid="isGrid" :UiElement="com" v-if="com.elementType == 'TextBox'||com.elementType == 'Label'" :Def="Def" />
-                                        <BLButton  :UiElement="com" v-if="com.elementType == 'Button'" :Def="Def"/>
-                                        <BLDatePicker :isGrid="isGrid" :UiElement="com" v-if="com.elementType == 'DatePicker'" :Def="Def"/>
-                                        <CodeBaseCombo :is-grid="isGrid" :UiElement="com" v-if="(com.elementType == 'Cmb' && com.elementID == 'CodeBase')" :Def="Def"/>
-                                        <AccountCombo :is-grid="isGrid" :UiElement="com" v-if="com.elementType == 'Cmb' && com.elementID == 'Account'" :Def="Def"/>
-                                        <AddressCombo :is-grid="isGrid" :UiElement="com" v-if="com.elementType == 'Cmb' && com.elementID == 'Address'" :Def="Def"/>
-                                        <ItemCombo :UiElement="com" v-if="com.elementType == 'Cmb' && com.elementID == 'Item'" :Def="Def"/>
-                                        <UnitCombo :UiElement="com" v-if="com.elementType == 'Cmb' && com.elementID == 'Unit'" :Def="Def"/>
-                                </v-col>
-                            </v-row>
-                            <v-row id="grid-section" v-if="arrDetailGrid!=undefined || arrDetailGrid!=null">
-                                <BLGrid :UiElement="arrDetailGrid" :Def="Def"/>
-                            </v-row>
                         </v-card-text>
                     </v-card>
                     
@@ -179,15 +152,3 @@ export default toNative(UIBuilder)
 
 
 <style></style>
-<!-- <SectionFormatGroup  v-if="com.elementType == 'SectnFrmtGrp'" :Parent="com.elementKey" :ComponentList="ContentList" /> -->
-<!-- <PopupWindow v-if="com.elementType == 'PopUpWindow'" :Parent="com.elementKey" :ComponentList="ContentList"/> -->
-<!-- <GridCover v-if="com.elementType == 'Grid'" :Parent="com.elementKey" :ComponentList="ContentList" /> -->
- <!-- <div v-if="com.elementType != 'Grid' && com.elementType != 'CalcTmpl' && com.elementType != 'ImageBox' && com.elementType != 'Switch' && com.elementType != 'Cmb' && com.elementType != 'DatePicker' && com.elementType != 'Button' && com.elementType != 'ButtonGroup' && com.elementType != 'TextBox' && com.elementType != 'NumericBox' && com.elementType != 'SectnFrmtGrp' && com.elementType != 'PopUpWindow' && com.elementType != 'ReportWeb' && com.elementType != 'FormGroup'">
- <Headings :UiElement="com" v-if="com.elementType == 'Heading6' || com.elementType == 'Heading5' || com.elementType == 'Heading4' || com.elementType == 'Heading3' || com.elementType == 'Heading2' || com.elementType == 'Heading1'" />         
-                <div v-if="com.elementType != 'Heading6' && com.elementType != 'MultiRadio' && com.elementType != 'Label' && com.elementType != 'Heading5' && com.elementType != 'TelNumericBox' && com.elementType != 'Heading4' && com.elementType != 'Heading3' && com.elementType != 'Heading2' && com.elementType != 'Heading1'"> 
-                    {{ com }}
-                </div> 
-                
-                </div> 
-                
-Report web,Grid,Image Box,Label,CalcTmpl and Form Group Not yet Constructed! -->

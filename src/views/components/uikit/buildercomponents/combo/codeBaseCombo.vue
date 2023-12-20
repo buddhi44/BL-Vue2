@@ -36,6 +36,7 @@ class codeBaseCombo extends Vue implements IUIDefinition{
     readonly actionTriggers:  any[] | undefined
 
     async mounted(){
+            this.uiObject=this.UiElement;
             this.selectedDataItem.value=new CodeBaseResponse()
             this.codeBaseResponses.value=[]
             this.css = this.UiElement.isVisible?this.UiElement.cssClass:"d-none"
@@ -103,7 +104,7 @@ export default toNative(codeBaseCombo)
 </script>
 
 <template>
-    <b-l-container :is-grid="isGrid" :width="UiElement.width" v-if="UiElement.isVisible" >
+    
         <v-autocomplete v-model="selectedDataItem" 
                         @update:model-value="OnValueChanged" 
                         :items="codeBaseResponses" 
@@ -117,6 +118,4 @@ export default toNative(codeBaseCombo)
                         
                     </v-autocomplete>
 
-                    
-    </b-l-container>
 </template>

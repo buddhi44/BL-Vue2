@@ -7,7 +7,7 @@ import type { BLUIElement } from '@/core/domain/BLUIElement';
 import  { PropHelper } from '@/helper/propertyHelper';
 
 @Component
-class blTextBox extends Vue implements IUIDefinition{
+class blNnumericBox extends Vue implements IUIDefinition{
     @Prop()
     public UiElement!:any
     @Prop()
@@ -21,39 +21,45 @@ class blTextBox extends Vue implements IUIDefinition{
     css !:string
     myCaption = ref<string>("")
     readonly=ref<boolean>(false)
-    textBoxValue=ref<string>('')
+    numericValue=ref<number>(0)
 
     mounted(){
         this.uiObject=this.UiElement;
         this.css = this.UiElement.isVisible?this.UiElement.cssClass:"d-none"
         this.css=this.css+ (this.UiElement.isMust?" required":"")
         this.css_class=this.css  
-        this.readonly= this.UiElement.elementType === 'ReadOnlyTextBox'||this.UiElement.elementType === 'Label'
+        this.readonly= this.UiElement.elementType === 'ReadOnlyTextBox'
+    
+        if (this.Def != undefined && this.Def.DataObject != undefined) 
+        {
 
-        if (this.Def != undefined && this.Def.DataObject != undefined) {
-
-            if (this.Def.DataObject[this.UiElement.defaultAccessPath]) {
-                this.textBoxValue = this.Def.DataObject[this.UiElement.defaultAccessPath];
+            if (this.Def.DataObject[this.UiElement.defaultAccessPath])
+            {
+                this.numericValue = this.Def.DataObject[this.UiElement.defaultAccessPath];
             }
         }
 
         if (!this.Def.hasComponent(this)) {
             this.Def.ObjectRefs.push(this);
         }
+        //console.log(this.Def.ObjectRefs)
 
     }
 
-    onTextBoxChange(ev: string) {
-        PropHelper.updatePropertyPath(ev, this.UiElement.defaultAccessPath, this.Def.DataObject);
+    onNumericBoxChange(ev: string) {
+       //this.Def.DataObject[this.UiElement.defaultAccessPath] = Number(ev)
+       
+      PropHelper.updatePropertyPath(Number(ev), this.UiElement.defaultAccessPath, this.Def.DataObject);
+
         if (this.Def != undefined && this.UiElement.onClickAction != null && this.UiElement.onClickAction.length > 1) {
 
             if (this.Def.OwnerComponent != undefined && (typeof this.Def.OwnerComponent[this.UiElement.onClickAction]) == 'function') {
                 let callback = this.Def.OwnerComponent[this.UiElement.onClickAction] as Function
-                callback.apply(this.Def.OwnerComponent, [ev]);
+                callback.apply(this.Def.OwnerComponent, [Number(ev)]);
             }
             else {
-                console.timeStamp();
-                console.error(`cannot find function  ${this.UiElement.onClickAction} in the  below mentioned component `);
+                // console.timeStamp();
+                // console.error(`cannot find function  ${this.UiElement.onClickAction} in the  below mentioned component `);
 
 
             }
@@ -62,6 +68,7 @@ class blTextBox extends Vue implements IUIDefinition{
 
     Disable(): void {
         this.UiElement.isEnable = false;
+
     }
     Enable(): void {
         this.UiElement.isEnable = true;
@@ -70,20 +77,32 @@ class blTextBox extends Vue implements IUIDefinition{
     throw new Error('Method not implemented.');
     }
 
+    // @Watch('Def.DataObject', { immediate: true })
+
+    //     propertyWatcher(newValue: any, oldValue: any) {
+    //         let val = PropHelper.getPropertyValue(this.Def.DataObject, this.UiElement.defaultAccessPath)
+    //         if (val != undefined) {
+    //             this.numericValue = val;
+    //             return;
+    //         }
+    //         this.numericValue = 0;
+    //     }
+
+
 }
-export default toNative(blTextBox)
+export default toNative(blNnumericBox)
 //console.log(props.UiElement)
 </script>
 
 <template>
         <v-text-field id="{{UiElement.elementID}}"
-                       v-model="textBoxValue" 
+                      type="number" 
+                      v-model="numericValue" 
                       :label="UiElement.elementCaption" 
                       :class="css_class"
                       :disabled="!(UiElement.isEnable)"
                       :readonly="readonly"
-                      @update:model-value="(e)=>{onTextBoxChange(e)}"
-                      placeholder=""></v-text-field>
+                      @update:model-value="(e)=>{onNumericBoxChange(e)}"></v-text-field>
 
 </template>
 
