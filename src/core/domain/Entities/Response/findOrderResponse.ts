@@ -2,28 +2,28 @@ import { AccountResponse } from "../Base/accountResponse"
 import { CodeBaseResponse } from "../Base/codeBaseReponse"
 
 export interface FindOrderResponse {
-    orderKey: number;
+    OrderKey: number;
     orderDate: string;
-    insertDate: string;
-    prefix: string;
-    orderNumber: string;
-    documentNumber: string;
-    yourReference: string;
-    description: string;
-    cusSupId: string;
-    cusSupName: string;
-    projectKey: number;
-    projectName: any;
-    approveState: CodeBaseResponse;
-    account: AccountResponse;
-    requestingObjectKey: number;
-    previewURL: any;
-    entUsrKy: number;
-    isActive: number;
+    InsertDate: string;
+    Prefix: string;
+    OrderNumber: string;
+    DocumentNumber: string;
+    YourReference: string;
+    Description: string;
+    CusSupId: string;
+    CusSupName: string;
+    ProjectKey: number;
+    ProjectName: any;
+    ApproveState: CodeBaseResponse;
+    Account: AccountResponse;
+    RequestingObjectKey: number;
+    PreviewURL: any;
+    EntUsrKy: number;
+    IsActive: number;
     remark: string;
     approveReason: any;
     orderCategory1: CodeBaseResponse;
     orderCategory2: CodeBaseResponse;
-    orderStatus: CodeBaseResponse;
+    OrderStatus: CodeBaseResponse;
    
 }

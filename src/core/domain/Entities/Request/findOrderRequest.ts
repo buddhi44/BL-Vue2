@@ -5,20 +5,21 @@ import { ProjectResponse } from "../Base/projectResponse";
 
 export class FindOrderRequest {
 
-    orderNumber: string = '';
+    OrderNo: string = '';
     objectKey: number = 1;
     documentNumber: string = '';
-    fromDate: Date = new Date();
-    toDate: Date = new Date();
-    location: CodeBaseResponse = new CodeBaseResponse();
+    FromDate: Date = new Date();
+    ToDate: Date = new Date();
+    Location: CodeBaseResponse = new CodeBaseResponse();
     project: ProjectResponse = new ProjectResponse();
     address: AddressResponse = new AddressResponse();
-    prefix: CodeBaseResponse = new CodeBaseResponse();
+    Prefix: CodeBaseResponse = new CodeBaseResponse();
     account: AccountResponse = new AccountResponse();
     approveStatus: CodeBaseResponse = new CodeBaseResponse();
-    orderStatus: CodeBaseResponse = new CodeBaseResponse();
+    OrderStatus: CodeBaseResponse = new CodeBaseResponse();
     repAddress: AddressResponse = new AddressResponse();
-    nullableFromDateString: string = '';
+    NullableFromDateString: string = '';
+    NullableToDateString:string='';
 
 
 }

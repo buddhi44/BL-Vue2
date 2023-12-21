@@ -119,16 +119,16 @@ class button extends Vue implements IUIDefinition{
 
     onButtonClicked=(e:any)=> 
     {
-
+        
         if (this.Def != undefined && this.UiElement.onClickAction != null && this.UiElement.onClickAction.length > 1) {
-
+            console.log("fdfv",this.Def.OwnerComponent)
             if (this.Def.OwnerComponent != undefined && (typeof this.Def.OwnerComponent[this.UiElement.onClickAction]) == 'function') {
                 let callback = this.Def.OwnerComponent[this.UiElement.onClickAction] as Function
-                callback.apply(this.Def.OwnerComponent, [e.target, this.uiObject]);
+                callback.apply(this.Def.OwnerComponent, [e.target, this.UiElement]);
             }
             else {
                 console.timeStamp();
-                console.error(`cannot find function  ${this.uiObject.onClickAction} in the  below mentioned component `);
+                console.error(`cannot find function  ${this.UiElement.onClickAction} in the  below mentioned component `);
             
             }
         }

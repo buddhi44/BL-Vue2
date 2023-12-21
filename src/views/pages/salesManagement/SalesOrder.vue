@@ -41,7 +41,7 @@ class SalesOrder extends Vue{
     formRef =ref<any>();
     baseComponent=ref<BaseComponent>()
     findOrderRequest=ref<FindOrderRequest>();
-    findOrderResponse!: FindOrderResponse[];
+    findOrderResponse=ref<FindOrderResponse[]>();
     dialog=ref<boolean>(false)
 
     async mounted(){
@@ -58,16 +58,16 @@ class SalesOrder extends Vue{
         this.findOrderRequest = new FindOrderRequest();
         this.popUpDefinition.UIObjectKey=186580
         this.popUpDefinition.DataObject = this.findOrderRequest;
-        
+        this.popUpDefinition.OwnerComponent = this;
     }
 
     updated(){
         console.log("update",this )
     }
 
-    OnOrderNewClick=()=>{
-        this.order.value = new BLOrder();
-        
+    OnOrderNewClick=(elem: any)=>{
+        //this.order.value = new BLOrder();
+        console.log(this.order.value)
 
     }
    
@@ -75,7 +75,7 @@ reset= ()=> {
     
 }
 
-async OnOrderFindClick(){
+async OnOrderFindClick(elem: any,callerUiObject: any){
     //this.findOrderRequest.objectKey = this.UIObjectKey;
        // this.findOrderRequest.nullableFromDateString = formatDate(this.findOrderRequest.fromDate, 'dd/MM/yyyy','en-us');
     //this.findOrderResponse = await fetchWrapper.post(`${base_end_point()}order/findOrders`,this.findOrderRequest)
@@ -83,7 +83,7 @@ async OnOrderFindClick(){
     this.dialog=true;
 }
 
-async OnOrderSaveClick(){
+async OnOrderSaveClick(elem: any,callerUiObject: any){
     
     var ord_res= await fetchWrapper.post(`${base_end_point()}order/saveOrder`,this.order)
     console.log("ord_res",ord_res)
@@ -161,7 +161,7 @@ OnLineTransactionQuantityChanged(e:number){
 OnRateChange(e:number){
     this.order.SelectedOrderItem.TransactionRate=e
 }
-OnAddItemButtonClick() {
+OnAddItemButtonClick(elem: any,callerUiObject: any) {
 
     if (this.order.SelectedOrderItem) {
         this.order.OrderItems.push(this.order.SelectedOrderItem);
@@ -178,6 +178,33 @@ OnAddItemButtonClick() {
 
 }
 
+async OnFindButtonClick(elem: any,callerUiObject: any)
+{
+    this.findOrderRequest.ObjectKey = 208286;
+
+    const options: Intl.DateTimeFormatOptions = {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+    };
+
+    const formattedDate: string = this.findOrderRequest.FromDate.toLocaleDateString('en-GB', options);
+
+    this.findOrderRequest.NullableFromDateString = formattedDate;
+
+    console.log("find_req",this.findOrderRequest)
+    var find_res= await fetchWrapper.post(`${base_end_point()}order/findOrders`,this.findOrderRequest)
+    console.log("find_res",find_res)
+    this.findOrderResponse=find_res
+}
+
+async OnOrderOpenClick(row:FindOrderResponse){
+    this.order.OrderNumber=row.orderNumber
+    this.order.OrderLocation=row.OrderLocation
+    this.order.OrderCustomer=row.Address
+
+    console.log(this.order)
+}
 
 }
 
@@ -189,7 +216,7 @@ export default toNative(SalesOrder)
     <v-card elevation="10" class="pa-3" style="width:100%;height:calc(100vh - 140px);background-color: #dbeded;overflow-y:scroll">
         <div class="ma-2">
             
-
+                    <strong>OrderNo-{{ order.OrderNumber? order.OrderNumber:"" }}</strong>
                 <!-- <v-form> -->
                     <UIBuilder v-if="mainFormDefinitions!=undefined"  :Def="mainFormDefinitions" />
                 <!-- </v-form> -->
@@ -200,11 +227,51 @@ export default toNative(SalesOrder)
 
     <v-dialog
       v-model="dialog"
-      width="auto"
+      width="1000"
     >
       <v-card>
         <v-card-text>
-            <UIBuilder v-if="popUpDefinition!=undefined"  :Def="popUpDefinition" />
+            <UIRendere v-if="popUpDefinition!=undefined"  :Def="popUpDefinition" />
+
+            <v-row>
+                <v-col>
+                    <v-card elevation="10" class="pb-2">
+                        <v-card-item class="pa-6">
+                            <div class="d-flex align-center justify-space-between">
+                                <div>
+                                    <h5 class="text-h5 mb-1 font-weight-semibold">Line Items</h5>
+                                </div>
+                            </div>
+                            <v-table class="month-table">
+                                <thead>
+                                    <tr >
+                                        <th class="text-subtitle-1 font-weight-bold">Order No</th>
+                                        <th class="text-subtitle-1 font-weight-bold">Order Date</th>
+                                        <th class="text-subtitle-1 font-weight-bold">Des</th>
+                                        <th class="text-subtitle-1 font-weight-bold">Address</th>
+                                        <th class="text-subtitle-1 font-weight-bold">Project</th>
+                                        <th class="text-subtitle-1 font-weight-bold">Enterd By</th>
+                                        <th class="text-subtitle-1 font-weight-bold">#</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                     <tr v-if="findOrderResponse" v-for="row of findOrderResponse"  class="month-item">
+                                       <td v-if="row" scope="col">{{row.orderNumber}}</td>
+                                        <td v-if="row" scope="col">{{row.OrderDate}}</td>
+                                        <td v-if="row" scope="col">{{row.description}}</td>
+                                        <td v-if="row" scope="col">{{row.cusSupId}} - {{row.cusSupName}} </td>
+                                        <td v-if="row" scope="col">-</td>
+                                        <td v-if="row" scope="col">-</td>
+                                        <td v-if="row" scope="col" class="right"><button type="button" class="btn btn-light btn-sm" v-on:click="OnOrderOpenClick(row)">Open</button></td>
+                                        
+                                    </tr>
+                                
+                                </tbody>
+                            </v-table>
+                        </v-card-item>
+                    </v-card>
+                </v-col>
+            </v-row>
         </v-card-text>
         <v-card-actions>
           <v-btn color="primary" block @click="dialog = false">Close Dialog</v-btn>

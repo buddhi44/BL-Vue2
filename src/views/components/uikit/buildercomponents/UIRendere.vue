@@ -21,6 +21,7 @@ import type { BLUIBuilder } from '@/core/domain/interfaces/IBLUIOperationHelper'
 import type ObjectFormRequest from '@/core/domain/ObjectFormRequest'
 import { fetchWrapper } from '@/managers/helper'
 import { TokenEndPoint } from '@/router/token_endpoint'
+import type { FindOrderResponse } from '@/core/domain/Entities/Response/findOrderResponse'
 
 @Component({
     components:{
@@ -47,8 +48,9 @@ class UiRendere extends Vue {
 
     arrHeaderSection1=ref<any>();
 
+    
     async mounted(){   
-        console.log(this.Def)
+        
         await this.LoadFormDefinition().then(res=>{
             this.ContentList= res;
             this.Title=res[1].elementCaption
@@ -68,7 +70,7 @@ class UiRendere extends Vue {
         }
         
         var content = await fetchWrapper.post(TokenEndPoint.FormDefinitionUrl,request)
-        
+       
         var contList = content.children;
 
         //var element = null;
@@ -89,9 +91,7 @@ class UiRendere extends Vue {
         let result: any = [];
 
         result = this.buildParentChild(items, parentKey);
-       
-        this.arrHeaderSection1 = result.filter((x:any)=> x._internalElementName === '_SearchSalesOrder_')[0];
-       
+        this.arrHeaderSection1 = result.filter((x:any)=> x._internalElementName !== "SearchOrderGrid");
         return result;
     }
     
@@ -125,13 +125,13 @@ export default toNative(UiRendere)
                         <v-toolbar
                             color="rgba(0, 0, 0, 0)"
                             theme="dark">
-                                <v-toolbar-title class="text-h6" v-if="myComponents != null || myComponents != undefined"> {{ Title }} </v-toolbar-title>
+                                <v-toolbar-title class="text-h6" v-if="myComponents != null || myComponents != undefined"> Find Order </v-toolbar-title>
                                 <v-spacer></v-spacer>
                                 
                         </v-toolbar>
                         <v-card-text>
-                            <v-row id="header-section" v-if="arrHeaderSection1!=undefined || arrHeaderSection1!=null">
-                                <v-col  v-for="com in arrHeaderSection1.children"  :v-if="com.isVisible" cols=12 :md=com.width  :class="com.isVisible?'':'d-none'">
+                            <v-row id="find-header-section" v-if="arrHeaderSection1!=undefined || arrHeaderSection1!=null">
+                                <v-col  v-for="com in arrHeaderSection1"  :v-if="com.isVisible" cols=12 :md=com.width  :class="com.isVisible?'':'d-none'">
                                         <NumericBox :isGrid="isGrid" :UiElement="com" v-if="com.elementType == 'NumericBox' || com.elementType == 'TelNumericBox'" :Def="Def" />
                                         <TextBox :isGrid="isGrid" :UiElement="com" v-if="com.elementType == 'TextBox'" :Def="Def" />
                                         <BLButton  :UiElement="com" v-if="com.elementType == 'Button'" :Def="Def"/>
@@ -141,13 +141,14 @@ export default toNative(UiRendere)
                                         <AddressCombo :is-grid="isGrid" :UiElement="com" v-if="com.elementType == 'Cmb' && com.elementID == 'Address'" :Def="Def"/>                            
                                 </v-col>
                             </v-row>
-
+                            
                             
                         </v-card-text>
                     </v-card>
                     
                 </v-row>
          </v-container>
+
     </template>
 
 
