@@ -99,11 +99,36 @@ export class BLOrder {
             this.TransactionDiscountAmount += item.TransactionDiscountAmount;
             this.Amount += item.calclulatePostDiscountLineTotal();
             this.TransactionAmount = item.calclulatePreDiscountLineTotal();
-
         });
     }
 
+    copyFrom(source:any){
+        
+        this.OrderKey=source.orderKey
+        this.OrderNumber=source.orderNumber
+        this.OrderDate=source.orderDate
+        this.OrderLocation=source.orderLocation
+        this.OrderCustomer=source.orderCustomer
+        this.OrderAccount=source.orderAccount
+        this.OrderRepAddress=source.orderRepAddress
+        this.OrderPaymentTerm=source.orderPaymentTerm
+        this.HeaderDiscountAmount=source.headerDiscountAmount
+        source.orderItems.forEach((itm:any) => {
+           var ordr_obj= {
+                LineNumber:itm.lineNumber,
+                TransactionItem:itm.transactionItem,
+                TransactionRate:itm.transactionRate,
+                TransactionQuantity:itm.transactionQuantity,
+                DiscountPercentage:itm.discountPercentage,
+                DiscountAmount:itm.discountAmount,
+                TransactionDiscountAmount:itm.transactionDiscountAmount,
+                ItemTaxType1Per:itm.itemTaxType1Per,
+                ItemTaxType1:itm.itemTaxType1,
+            }
+            this.OrderItems.push(ordr_obj as OrderItem)
+        });
 
+    }
     constructor() {
 
     }

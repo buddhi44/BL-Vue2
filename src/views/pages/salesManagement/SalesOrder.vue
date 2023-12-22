@@ -20,6 +20,7 @@ import base_end_point from '@/router/base_end_point';
 import {FindOrderRequest} from '@/core/domain/Entities/Request/findOrderRequest'
 import {FindOrderResponse} from '@/core/domain/Entities/Response/findOrderRequest'
 import UIRendere from '@/views/components/uikit/buildercomponents/UIRendere.vue'
+import ItemCombo from '@/views/components/uikit/buildercomponents/combo/itemCombo.vue'
 
 @Component({
     components:{UIBuilder,UIRendere}
@@ -48,7 +49,8 @@ class SalesOrder extends Vue{
         this.order.value = new BLOrder();
         this.order.value.SelectedOrderItem=new OrderItem()
         this.mainFormDefinitions = new BLUIBuilder();
-        this.order.value.ObjectKey = Number(this.objectKey);
+        this.order.ObjectKey = Number(this.objectKey);
+        this.order.FormObjectKey = Number(this.objectKey);
         this.UIObjectKey= Number(this.objectKey);
         this.mainFormDefinitions.UIObjectKey = Number(this.objectKey);
         this.mainFormDefinitions.OwnerComponent = this;
@@ -61,13 +63,15 @@ class SalesOrder extends Vue{
         this.popUpDefinition.OwnerComponent = this;
     }
 
-    updated(){
-        console.log("update",this )
-    }
+    
 
     OnOrderNewClick=(elem: any)=>{
-        //this.order.value = new BLOrder();
-        console.log(this.order.value)
+        
+        // this.order=new BLOrder()
+        // this.order.OrderItems=[]
+        // this.mainFormDefinitions.DataObject=this.order;
+
+        console.log("order",this.order)
 
     }
    
@@ -76,17 +80,15 @@ reset= ()=> {
 }
 
 async OnOrderFindClick(elem: any,callerUiObject: any){
-    //this.findOrderRequest.objectKey = this.UIObjectKey;
-       // this.findOrderRequest.nullableFromDateString = formatDate(this.findOrderRequest.fromDate, 'dd/MM/yyyy','en-us');
-    //this.findOrderResponse = await fetchWrapper.post(`${base_end_point()}order/findOrders`,this.findOrderRequest)
-
     this.dialog=true;
 }
 
 async OnOrderSaveClick(elem: any,callerUiObject: any){
-    
-    var ord_res= await fetchWrapper.post(`${base_end_point()}order/saveOrder`,this.order)
-    console.log("ord_res",ord_res)
+ 
+   this.order.FormObjectKey = Number(this.objectKey);
+   var ord_res= await fetchWrapper.post(`${base_end_point()}order/createGenericOrder`,this.order)
+
+   await this.LoadOrder({orderKey:ord_res.orderKey});
 
 }
 
@@ -145,6 +147,7 @@ async OnTransactionItemChange(item:ItemResponse){
     
     
 }
+
 TransactionUnit_OnBeforeDataFetch(request: UnitComboRequest){
     
     if (this.order.SelectedOrderItem.TransactionItem ) 
@@ -161,21 +164,19 @@ OnLineTransactionQuantityChanged(e:number){
 OnRateChange(e:number){
     this.order.SelectedOrderItem.TransactionRate=e
 }
-OnAddItemButtonClick(elem: any,callerUiObject: any) {
 
+OnAddItemButtonClick(elem: any,callerUiObject: any) {
+   
     if (this.order.SelectedOrderItem) {
+        this.order.SelectedOrderItem.LineNumber=this.order.OrderItems.length+1
         this.order.OrderItems.push(this.order.SelectedOrderItem);
-        
-        this.order.SelectedOrderItem= undefined;
-        this.order.calculateBalances();
+       
+        this.order.calculateBalances()
+        this.order.SelectedOrderItem.LineDiscount=this.order.SelectedOrderItem.TransactionDiscountAmount ;
+        this.order.SelectedOrderItem=new OrderItem()
     }
     else {
-       this.order.createNewOrderItem();
     }
-
-
-
-
 }
 
 async OnFindButtonClick(elem: any,callerUiObject: any)
@@ -189,22 +190,53 @@ async OnFindButtonClick(elem: any,callerUiObject: any)
     };
 
     const formattedDate: string = this.findOrderRequest.FromDate.toLocaleDateString('en-GB', options);
-
+    const formattedToDate: string = this.findOrderRequest.ToDate.toLocaleDateString('en-GB', options);
     this.findOrderRequest.NullableFromDateString = formattedDate;
+    this.findOrderRequest.NullableToDateString = formattedToDate;
 
     console.log("find_req",this.findOrderRequest)
     var find_res= await fetchWrapper.post(`${base_end_point()}order/findOrders`,this.findOrderRequest)
-    console.log("find_res",find_res)
+    
     this.findOrderResponse=find_res
 }
 
-async OnOrderOpenClick(row:FindOrderResponse){
-    this.order.OrderNumber=row.orderNumber
-    this.order.OrderLocation=row.OrderLocation
-    this.order.OrderCustomer=row.Address
-
-    console.log(this.order)
+async OnOrderOpenClick(row:any){
+    var find_res= await fetchWrapper.post(`${base_end_point()}order/OpenOrder`,{OrderKey:row.orderKey,ObjKy:208286})
+    if(find_res){
+        this.dialog=false
+        this.order.copyFrom(find_res)
+        this.mainFormDefinitions.DataObject=this.order;
+    }
+    
+    
+    
 }
+
+async LoadOrder(req:any){
+    this.order.OrderItems=[]
+    var find_res= await fetchWrapper.post(`${base_end_point()}order/OpenOrder`,{OrderKey:req.orderKey,ObjKy:Number(this.objectKey)})
+    if(find_res){
+        this.order.copyFrom(find_res)
+        this.mainFormDefinitions.DataObject=this.order;
+    } 
+    
+}
+unwrapProxy(obj: any): any {
+    
+  if (typeof obj !== 'object' || obj === null) {
+    return obj;
+  }
+
+  const unwrappedObject: any = {};
+  for (const key of Object.keys(obj)) {
+    const value = obj[key];
+    unwrappedObject[key] = this.unwrapProxy(value);
+  }
+
+  return unwrappedObject;
+}
+
+
 
 }
 
@@ -216,7 +248,11 @@ export default toNative(SalesOrder)
     <v-card elevation="10" class="pa-3" style="width:100%;height:calc(100vh - 140px);background-color: #dbeded;overflow-y:scroll">
         <div class="ma-2">
             
-                    <strong>OrderNo-{{ order.OrderNumber? order.OrderNumber:"" }}</strong>
+                        <v-toolbar
+                            color="rgba(0, 0, 0, 0)"
+                            theme="dark">
+                                <v-toolbar-title class="text-h6"><strong>Special Order-{{ (order && order!=null && order.OrderNumber)? order.OrderNumber:"" }}</strong></v-toolbar-title>
+                        </v-toolbar>
                 <!-- <v-form> -->
                     <UIBuilder v-if="mainFormDefinitions!=undefined"  :Def="mainFormDefinitions" />
                 <!-- </v-form> -->

@@ -9,7 +9,7 @@ import {BLUIBuilder, BaseComponent} from '@/core/domain/interfaces/IBLUIOperatio
 
 export class PropHelper {
     static getPropertyValue(dataItem: any, accessPath: string) {
-
+        
         let mappedItem: any;
 
         if (accessPath) {
@@ -21,12 +21,17 @@ export class PropHelper {
             }
             if (arr.length === 2) {
                 let lvl1 = dataItem[arr[0]];
-                
-                mappedItem = lvl1[arr[1]];
-                
+
+                if(lvl1 && lvl1[arr[1]]){
+                    mappedItem = lvl1[arr[1]];
+                }
+
                 if(mappedItem===undefined || mappedItem===null){
                     var s2= arr[1].charAt(0).toLowerCase() + arr[1].slice(1)
-                    mappedItem = lvl1[s2];
+                    if(lvl1 && s2){
+                        mappedItem = lvl1[s2];
+                    }
+                    
                 }
             }
 

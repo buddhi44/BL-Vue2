@@ -121,7 +121,7 @@ class button extends Vue implements IUIDefinition{
     {
         
         if (this.Def != undefined && this.UiElement.onClickAction != null && this.UiElement.onClickAction.length > 1) {
-            console.log("fdfv",this.Def.OwnerComponent)
+       
             if (this.Def.OwnerComponent != undefined && (typeof this.Def.OwnerComponent[this.UiElement.onClickAction]) == 'function') {
                 let callback = this.Def.OwnerComponent[this.UiElement.onClickAction] as Function
                 callback.apply(this.Def.OwnerComponent, [e.target, this.UiElement]);

@@ -55,7 +55,6 @@ class codeBaseCombo extends Vue implements IUIDefinition{
     
                 }
             
-
                 })
             }
             
@@ -64,7 +63,6 @@ class codeBaseCombo extends Vue implements IUIDefinition{
 
     OnValueChanged=(e:CodeBaseResponse)=>{
         this.Def.DataObject[this.UiElement.defaultAccessPath] = this.selectedDataItem;
-        
     }
  
     LaunchOnClickAction=(data : CodeBaseResponse)=>{

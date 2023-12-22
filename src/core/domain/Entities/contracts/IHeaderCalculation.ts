@@ -31,8 +31,9 @@ export interface ITaxableLine {
     DiscountAmount: number;
     Discount2Percentage: number;
     Discount2Amount: number;
-    LineNetTotal: number;
-    LineSubTotal: number;
+    NetTotal: number;
+    SubTotal: number;
+    GrossTotal:number;
     HeaderDiscountAmount: number;
     calclulatePreDiscountLineTotal(): number;
     calclulatePostDiscountLineTotal(): number;

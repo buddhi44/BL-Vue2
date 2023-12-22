@@ -15,7 +15,7 @@ class blGrid extends Vue {
 
     gridDefinition= ref<any>();
     lineItems=ref<OrderItem[]>();
-productPerformance: any;
+    productPerformance: any;
 
     mounted(){
 
@@ -24,6 +24,12 @@ productPerformance: any;
             }
         
 
+    }
+
+    @Watch("Def.DataObject", { immediate: true })
+
+    propertyWatcher(newValue: any, oldValue: any) {
+        this.lineItems = this.Def.DataObject['OrderItems'] as OrderItem[];
     }
 
     getProperty(lineItem: OrderItem, column: any) {
@@ -54,14 +60,17 @@ export default toNative(blGrid)
         <v-table class="month-table">
             <thead>
                 <tr >
-                    <th class="text-subtitle-1 font-weight-bold" v-for=" h of UiElement.children">{{h.elementCaption}}</th>
+                    <th class="text-subtitle-1 font-weight-bold" v-for=" h of UiElement.children.filter((x:any)=>x.isVisible)">{{h.elementCaption}}</th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-if="lineItems" v-for="item of lineItems"  class="month-item">
-                    <td v-if="item" v-for="col of UiElement.children">
-
-                        <label class="text-15 font-weight-medium">{{getProperty(item,col)}}</label>
+                    <td v-if="item" v-for="col of UiElement.children.filter((x:any)=>x.isVisible)">
+                        <span v-if="col.elementID==='CommandColumn'" class="d-inline-flex">
+                            <v-btn class="mdi mdi-pencil"></v-btn>
+                            <v-btn class="mdi mdi-close-circle-outline"></v-btn>
+                        </span>
+                        <label v-else class="text-15 font-weight-medium">{{getProperty(item,col)}}</label>
                     </td>
                     
                 </tr>
@@ -71,3 +80,9 @@ export default toNative(blGrid)
         </v-card-item>
     </v-card>
 </template>
+
+<style>
+    .month-table tr th:nth-child(2){
+        width:100px;
+    }
+</style>

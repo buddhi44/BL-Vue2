@@ -135,7 +135,7 @@ export default toNative(UIBuilder)
                         <v-toolbar
                             color="rgba(0, 0, 0, 0)"
                             theme="dark">
-                                <v-toolbar-title class="text-h6" v-if="myComponents != null || myComponents != undefined"> {{ Title }} </v-toolbar-title>
+                        
                                 <v-spacer></v-spacer>
                                 <ButtonGroup v-if="arrButtonSection!=undefined || arrButtonSection!=null"   :UiElement="arrButtonSection"  :Def="Def"/>
                         </v-toolbar>

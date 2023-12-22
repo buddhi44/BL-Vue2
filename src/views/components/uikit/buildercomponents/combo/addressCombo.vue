@@ -11,6 +11,7 @@ import type { BLUIElement } from '@/core/domain/BLUIElement';
 import { ComboRequest } from '@/core/domain/Entities/Base/comboRequest';
 import SalesOrder from '@/views/pages/salesManagement/SalesOrder.vue';
 import type { BLOrder } from '@/core/domain/Entities/BLOrder';
+import { PropHelper } from '@/helper/propertyHelper';
 
 @Component
 class addressCombo extends Vue implements IUIDefinition{
@@ -29,10 +30,6 @@ class addressCombo extends Vue implements IUIDefinition{
     isEditable= ref<boolean>(true)
     comboRequest=ref<ComboRequest>(new ComboRequest())
     css !:string
-
-
-    @Inject({from:'actionTriggers'}) 
-    readonly actionTriggers:  any[] | undefined
 
     async mounted(){
             this.uiObject=this.UiElement;
@@ -87,6 +84,13 @@ fetchComboData=async(searchText='')=> {
     
 }
 
+@Watch("Def.DataObject", { immediate: true })
+
+    propertyWatcher(newValue: any, oldValue: any) {
+        this.selectedDataItem=this.Def.DataObject[this.UiElement.defaultAccessPath]
+        this.OnValueChanged(this.selectedDataItem);
+
+    }
 
 Disable(): void {
     throw new Error('Method not implemented.');

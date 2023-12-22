@@ -59,10 +59,10 @@ export class OrderItem implements ITaxableLine {
     ItemTaxType5: number = 0;
     ItemTaxType5Per: number = 0;
     ItemTaxType5Per2: number = 0;
-    LineNetTotal: number = 0;
-    lineNumber: number = 0;
-    LineSubTotal: number = 0;
-    LineTotal: number = 0;
+    NetTotal: number = 0;
+    LineNumber: number = 0;
+    SubTotal: number = 0;
+    GrossTotal: number = 0;
     LineTotalWithoutDiscount: number = 0;
     ObjectKey: number = 1;
     OrderDetailKey: number = 1;
@@ -95,14 +95,15 @@ export class OrderItem implements ITaxableLine {
     TransactionUnit: UnitResponse = new UnitResponse();
     TransferQuantity: number = 1;
     Unit: UnitResponse = new UnitResponse();
+    LineDiscount:number=0;
 
     calclulatePreDiscountLineTotal(): number {
-        this.LineTotal = this.TransactionQuantity * this.TransactionRate;
-        return this.LineTotal;
+        this.SubTotal = this.TransactionQuantity * this.TransactionRate;
+        return this.SubTotal;
     }
     calclulatePostDiscountLineTotal(): number {
-        this.LineSubTotal = this.calclulatePreDiscountLineTotal() - this.calculateDiscount();
-        return this.LineSubTotal;
+        this.NetTotal = this.calclulatePreDiscountLineTotal() - this.calculateDiscount();
+        return this.NetTotal;
     }
     calclulateItemTaxType1Total(): number {
         this.ItemTaxType1 = this.calclulatePostDiscountLineTotal() * this.ItemTaxType1Per;
@@ -128,16 +129,18 @@ export class OrderItem implements ITaxableLine {
         return 0;
     }
     calculatePostTaxLineTotal(): number {
-        this.LineNetTotal = this.calclulatePostDiscountLineTotal() + this.calclulateItemTaxType1Total();
-        return this.LineNetTotal;
+        this.GrossTotal = this.calclulatePostDiscountLineTotal() + this.calclulateItemTaxType1Total();
+        return this.GrossTotal;
 
     }
     calculateDiscount(): number {
         this.TransactionDiscountAmount = this.calclulatePreDiscountLineTotal() * this.DiscountPercentage / 100;
+    
         return this.TransactionDiscountAmount;
     }
 
     calculateBalances() {
+
         this.calclulatePreDiscountLineTotal();
         this.calclulatePostDiscountLineTotal();
         this.calclulateItemTaxType1Total();
